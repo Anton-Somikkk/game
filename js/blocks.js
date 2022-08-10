@@ -82,6 +82,7 @@ function renderDifficultySelectionBlock() {
         }
 
         if (target.dataset.button_start) {
+            
             console.log(button.dataset.button_start);
 
         }
