@@ -4,6 +4,7 @@ window.application = {
 
     blocks: {},
     screens: {},
+    level: undefined,
 
     renderScreen: function (screenName) {
 

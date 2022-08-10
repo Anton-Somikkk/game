@@ -78,12 +78,16 @@ function renderDifficultySelectionBlock() {
 
             target.classList.add('difficulty-selection__level_focus');
 
+            target.dataset.level = window.application.level;
             button.dataset.button_start = target.dataset.level;
+
         }
 
         if (target.dataset.button_start) {
-            
-            console.log(button.dataset.button_start);
+
+
+            game.innerHTML = '';
+            window.application.renderScreen('game-screen');
 
         }
     });
