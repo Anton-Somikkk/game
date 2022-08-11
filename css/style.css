@@ -120,5 +120,64 @@ body {
 .inverted-card {
     width: 95px;
     height: 133px;
-    background-color: rgb(224, 134, 134);
+    background: #FFFFFF;
+    border-radius: 4px;
+    background-image: url('../img/shirt.svg');
+}
+
+.card {
+    display: flex;
+    width: 95px;
+    height: 133px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 50;
+}
+
+.card__image_big {
+    position: absolute;
+        left: 33px;
+        top: 54px;
+        z-index: 60;
+    height: 25px;
+}
+
+.card__image {
+    position: absolute;
+        left: 9px;
+        top: 29px;
+    height: 6px;
+}
+
+.card__image_rotate {
+    position: absolute;
+        left: 82.37px;
+        top: 97px;
+    height: 6px;
+    transform: rotate(-180deg);
+}
+
+.card__title {
+    position: absolute;
+        left: 6px;
+        top: 0px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #000000;
+}
+
+.card__title_rotate {
+    position: absolute;
+        left: 79px;
+        top: 100px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #000000;
+    transform: rotate(-180deg);
 }

@@ -5,6 +5,12 @@ window.application = {
     blocks: {},
     screens: {},
     level: 0,
+    cards: {
+        cardTitle: ['6', '7', '8', '9', '10', 'Q', 'K', 'J', 'A'],
+        cardImageLittle: ['../img/diamonds-little.svg'],
+        cardImageBig: ['../img/diamonds.svg'],
+    },
+    randomElem: 0,
     easyLevelCollection: [],
     mediumLevelCollection: [],
     hardLevelCollection: [],
@@ -20,6 +26,9 @@ window.application = {
 
         window.application.blocks[blockName](container);
     },
+
+    timers: [],
+    
 }
 
 function name() {

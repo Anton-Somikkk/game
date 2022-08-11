@@ -17,10 +17,12 @@ function renderGameScreen() {
         invertedCard.classList.add('inverted-card');
         invertedCard.setAttribute('id', i);
         gameBox.appendChild(invertedCard);
-
     }
 
-
+    window.application.timers.push(setTimeout(() => {
+        window.application.renderBlock('card', gameBox);
+    }, 1000));
+   
 }
 
 window.application.screens['start-screen'] = renderStartScreen;
