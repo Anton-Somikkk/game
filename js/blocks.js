@@ -22,7 +22,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-level': '1',
+                                'data-level': '6',
                             },
                             content: '1',
                         },
@@ -31,7 +31,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-level': '2',
+                                'data-level': '12',
                             },
                             content: '2',
                         },
@@ -40,7 +40,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-level': '3',
+                                'data-level': '18',
                             },
                             content: '3',
                         },
@@ -78,12 +78,11 @@ function renderDifficultySelectionBlock() {
 
             target.classList.add('difficulty-selection__level_focus');
 
-            target.dataset.level = window.application.level;
-            button.dataset.button_start = target.dataset.level;
+            window.application.level = target.dataset.level;
 
         }
 
-        if (target.dataset.button_start) {
+        if (target.dataset.button_start && window.application.level > 0) {
 
 
             game.innerHTML = '';
