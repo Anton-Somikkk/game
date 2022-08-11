@@ -92,4 +92,74 @@ function renderDifficultySelectionBlock() {
     });
 }
 
+function renderCards(container) {
+
+    function createBlock() {
+
+        return {
+
+            tag: 'div',
+            cls: 'card',
+            content: [
+
+                {
+                    tag: 'div',
+                    cls: 'card__left-half',
+                    content: [
+
+                        {
+                            tag: 'p',
+                            cls: 'card__title',
+                            content: window.application.cards.cardTitle[window.application.randomElem],
+                        },
+
+                        {
+                            tag: 'img',
+                            cls: 'card__image',
+                            attrs: {
+                                'src': window.application.cards.cardImageLittle[window.application.randomElem],
+                            },
+                        },
+
+                    ],
+                },
+
+                {
+                    tag: 'img',
+                    cls: 'card__image_big',
+                    attrs: {
+                        'src': window.application.cards.cardImageBig[window.application.randomElem],
+                    },
+                },
+
+                {
+                    tag: 'div',
+                    cls: 'card__right-half',
+                    content: [
+
+                        {
+                            tag: 'p',
+                            cls: 'card__title_rotate',
+                            content: window.application.cards.cardTitle[window.application.randomElem],
+                        },
+
+                        {
+                            tag: 'img',
+                            cls: 'card__image_rotate',
+                            attrs: {
+                                'src': window.application.cards.cardImageLittle[window.application.randomElem],
+                            },
+                        },
+
+                    ],
+                },
+            ],
+        }
+    }
+
+    container.appendChild(templateEngine(createBlock()));
+
+}
+
 window.application.blocks['start-block'] = renderDifficultySelectionBlock;
+window.application.blocks['card'] = renderCards;
