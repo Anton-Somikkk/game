@@ -4,7 +4,10 @@ window.application = {
 
     blocks: {},
     screens: {},
-    level: undefined,
+    level: 0,
+    easyLevelCollection: [],
+    mediumLevelCollection: [],
+    hardLevelCollection: [],
 
     renderScreen: function (screenName) {
 
@@ -17,4 +20,8 @@ window.application = {
 
         window.application.blocks[blockName](container);
     },
+}
+
+function name() {
+    
 }

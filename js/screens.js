@@ -10,11 +10,16 @@ function renderGameScreen() {
     gameBox.classList.add('game-box');
     game.appendChild(gameBox);
 
-    for (let i = 0; i < 36; i++) {
-        const invertedCards = document.createElement('div');
-        invertedCards.classList.add('inverted-card');
-        gameBox.appendChild(invertedCards);
+
+    for (let i = 0; i < window.application.level; i++) {
+
+        const invertedCard = document.createElement('div');
+        invertedCard.classList.add('inverted-card');
+        invertedCard.setAttribute('id', i);
+        gameBox.appendChild(invertedCard);
+
     }
+
 
 }
 
