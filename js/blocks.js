@@ -78,11 +78,11 @@ function renderDifficultySelectionBlock() {
 
             target.classList.add('difficulty-selection__level_focus');
 
-            window.application.level = target.dataset.level;
+            window.application.cardsNumber = target.dataset.level;
 
         }
 
-        if (target.dataset.button_start && window.application.level > 0) {
+        if (target.dataset.button_start && window.application.cardsNumber > 0) {
 
 
             game.innerHTML = '';
@@ -150,7 +150,6 @@ function renderCards(container) {
                                 'src': window.application.cards.cardSuitLittle[window.application.randomSuit],
                             },
                         },
-
                     ],
                 },
             ],

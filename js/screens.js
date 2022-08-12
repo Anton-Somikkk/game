@@ -11,7 +11,7 @@ function renderGameScreen() {
     game.appendChild(gameBox);
 
 
-    for (let i = 0; i < window.application.level; i++) {
+    for (let i = 0; i < window.application.cardsNumber; i++) {
 
         const invertedCard = document.createElement('div');
         invertedCard.classList.add('inverted-card');
@@ -19,10 +19,36 @@ function renderGameScreen() {
         gameBox.appendChild(invertedCard);
     }
 
-    window.application.timers.push(setTimeout(() => {
-        window.application.renderBlock('card', gameBox);
-    }, 1000));
+
+    for (let i = 0; i < window.application.cardsNumber / 2; i++) {
+
+        window.application.CardsTittleCollection.push(Math.floor(Math.random() * 9));
+        window.application.CardsImageCollection.push(Math.floor(Math.random() * 4));
+    }
+
+    window.application.CardsTittleCollection = [...window.application.CardsTittleCollection, ...window.application.CardsTittleCollection];
+    window.application.CardsImageCollection = [...window.application.CardsImageCollection, ...window.application.CardsImageCollection];
+
+    window.application.CardsTittleCollection.sort(() => Math.random() - 0.5);
+    window.application.CardsImageCollection.sort(() => Math.random() - 0.5);
+
+    
    
+
+    window.application.timers.push(setTimeout(() => {
+
+        for (let i = 0; i < window.application.cardsNumber; i++) {
+
+            window.application.randomTitle = Math.floor(Math.random() * 9);
+
+            window.application.randomSuit = Math.floor(Math.random() * 4);
+
+            window.application.renderBlock('card', gameBox);
+
+        }
+
+    }, 500));
+
 }
 
 window.application.screens['start-screen'] = renderStartScreen;
