@@ -110,14 +110,14 @@ function renderCards(container) {
                         {
                             tag: 'p',
                             cls: 'card__title',
-                            content: window.application.cards.cardTitle[window.application.randomElem],
+                            content: window.application.cards.cardTitle[window.application.randomTitle],
                         },
 
                         {
                             tag: 'img',
                             cls: 'card__image',
                             attrs: {
-                                'src': window.application.cards.cardImageLittle[window.application.randomElem],
+                                'src': window.application.cards.cardSuitLittle[window.application.randomSuit],
                             },
                         },
 
@@ -128,7 +128,7 @@ function renderCards(container) {
                     tag: 'img',
                     cls: 'card__image_big',
                     attrs: {
-                        'src': window.application.cards.cardImageBig[window.application.randomElem],
+                        'src': window.application.cards.cardSuitBig[window.application.randomSuit],
                     },
                 },
 
@@ -140,14 +140,14 @@ function renderCards(container) {
                         {
                             tag: 'p',
                             cls: 'card__title_rotate',
-                            content: window.application.cards.cardTitle[window.application.randomElem],
+                            content: window.application.cards.cardTitle[window.application.randomTitle],
                         },
 
                         {
                             tag: 'img',
                             cls: 'card__image_rotate',
                             attrs: {
-                                'src': window.application.cards.cardImageLittle[window.application.randomElem],
+                                'src': window.application.cards.cardSuitLittle[window.application.randomSuit],
                             },
                         },
 
