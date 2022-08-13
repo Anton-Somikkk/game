@@ -11,44 +11,63 @@ function renderGameScreen() {
     game.appendChild(gameBox);
 
 
-    for (let i = 0; i < window.application.cardsNumber; i++) {
-
-        const invertedCard = document.createElement('div');
-        invertedCard.classList.add('inverted-card');
-        invertedCard.setAttribute('id', i);
-        gameBox.appendChild(invertedCard);
-    }
-
-
     for (let i = 0; i < window.application.cardsNumber / 2; i++) {
 
-        window.application.CardsTittleCollection.push(Math.floor(Math.random() * 9));
-        window.application.CardsImageCollection.push(Math.floor(Math.random() * 4));
+        window.application.randomSuit = Math.floor(Math.random() * 4);
+        window.application.randomTitle = Math.floor(Math.random() * 9);
+        window.application.cardsCollection.push([i, window.application.randomTitle, window.application.randomSuit]);
     }
 
-    window.application.CardsTittleCollection = [...window.application.CardsTittleCollection, ...window.application.CardsTittleCollection];
-    window.application.CardsImageCollection = [...window.application.CardsImageCollection, ...window.application.CardsImageCollection];
+    window.application.cardsCollection = [...window.application.cardsCollection, ...window.application.cardsCollection];
+    window.application.cardsCollection.sort(() => Math.random() - 0.5);
+    console.log(window.application.cardsCollection);
+    handOutInvertedCard();
+    setTimeout(() => handOutFrontCard(), 200);
+    setTimeout(() => handOutInvertedCard(), 5000);
 
-    window.application.CardsTittleCollection.sort(() => Math.random() - 0.5);
-    window.application.CardsImageCollection.sort(() => Math.random() - 0.5);
 
-    
-   
+    function handOutInvertedCard() {
 
-    window.application.timers.push(setTimeout(() => {
+        gameBox.innerHTML = '';
 
         for (let i = 0; i < window.application.cardsNumber; i++) {
 
-            window.application.randomTitle = Math.floor(Math.random() * 9);
+            const invertedCard = document.createElement('div');
+            invertedCard.classList.add('inverted-card');
+            invertedCard.setAttribute('id', i);
+            invertedCard.setAttribute('data-card', 'inverted');
 
-            window.application.randomSuit = Math.floor(Math.random() * 4);
+            gameBox.appendChild(invertedCard);
+        }
+    }
+
+    function handOutFrontCard() {
+
+        gameBox.innerHTML = '';
+        for (let i = 0; i < window.application.cardsNumber; i++) {
+
+            window.application.randomSuit = window.application.cardsCollection[i][2];
+            window.application.randomTitle = window.application.cardsCollection[i][1];
 
             window.application.renderBlock('card', gameBox);
-
         }
+    }
 
-    }, 500));
+    gameBox.addEventListener('click', (event) => {
 
+        const { target } = event;
+
+        if (target.dataset.card === 'inverted') {
+
+            window.application.randomSuit = window.application.cardsCollection[target.id][2];
+            window.application.randomTitle = window.application.cardsCollection[target.id][1];
+
+            target.classList.remove('inverted-card');
+            target.classList.add('card');
+
+            window.application.renderBlock('card', target);
+        }
+    });
 }
 
 window.application.screens['start-screen'] = renderStartScreen;

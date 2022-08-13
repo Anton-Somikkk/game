@@ -22,7 +22,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-level': '6',
+                                'data-cards_count': '6',
                             },
                             content: '1',
                         },
@@ -31,7 +31,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-level': '12',
+                                'data-cards_count': '12',
                             },
                             content: '2',
                         },
@@ -40,7 +40,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-level': '18',
+                                'data-cards_count': '18',
                             },
                             content: '3',
                         },
@@ -69,7 +69,7 @@ function renderDifficultySelectionBlock() {
         const { target } = event;
         event.preventDefault();
 
-        if (target.dataset.level) {
+        if (target.dataset.cards_count) {
 
             target.parentElement.childNodes.forEach(element => {
 
@@ -78,7 +78,7 @@ function renderDifficultySelectionBlock() {
 
             target.classList.add('difficulty-selection__level_focus');
 
-            window.application.cardsNumber = target.dataset.level;
+            window.application.cardsNumber = target.dataset.cards_count;
 
         }
 
@@ -94,6 +94,7 @@ function renderDifficultySelectionBlock() {
 
 function renderCards(container) {
 
+
     function createBlock() {
 
         return {
@@ -103,26 +104,21 @@ function renderCards(container) {
             content: [
 
                 {
-                    tag: 'div',
-                    cls: 'card__left-half',
-                    content: [
-
-                        {
-                            tag: 'p',
-                            cls: 'card__title',
-                            content: window.application.cards.cardTitle[window.application.randomTitle],
-                        },
-
-                        {
-                            tag: 'img',
-                            cls: 'card__image',
-                            attrs: {
-                                'src': window.application.cards.cardSuitLittle[window.application.randomSuit],
-                            },
-                        },
-
-                    ],
+                    tag: 'p',
+                    cls: 'card__title',
+                    content: window.application.cards.cardTitle[window.application.randomTitle],
                 },
+
+                {
+                    tag: 'img',
+                    cls: 'card__image',
+                    attrs: {
+                        'src': window.application.cards.cardSuitLittle[window.application.randomSuit],
+                    },
+                },
+
+
+
 
                 {
                     tag: 'img',
@@ -134,8 +130,9 @@ function renderCards(container) {
 
                 {
                     tag: 'div',
-                    cls: 'card__right-half',
+                    cls: 'card__box-title_rotate',
                     content: [
+
 
                         {
                             tag: 'p',
@@ -143,21 +140,22 @@ function renderCards(container) {
                             content: window.application.cards.cardTitle[window.application.randomTitle],
                         },
 
-                        {
-                            tag: 'img',
-                            cls: 'card__image_rotate',
-                            attrs: {
-                                'src': window.application.cards.cardSuitLittle[window.application.randomSuit],
-                            },
-                        },
                     ],
+                },
+
+                {
+                    tag: 'img',
+                    cls: 'card__image_rotate',
+                    attrs: {
+                        'src': window.application.cards.cardSuitLittle[window.application.randomSuit],
+                    },
                 },
             ],
         }
     }
 
-    container.appendChild(templateEngine(createBlock()));
 
+    container.appendChild(templateEngine(createBlock()));
 }
 
 window.application.blocks['start-block'] = renderDifficultySelectionBlock;
