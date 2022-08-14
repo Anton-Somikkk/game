@@ -1,10 +1,14 @@
+/* stylelint-disable prettier/prettier */
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable font-family-no-missing-generic-family-keyword */
+
 * {
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Stratos';
+    font-family: Stratos;
 }
 
 .center {
@@ -16,7 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(0, 73, 128, 1);
+    background-color: #004980;
     height: 100vh;
     padding-top: 20px;
 }
@@ -44,7 +48,6 @@ body {
     line-height: 48px;
     max-width: 208px;
     text-align: center;
-    /* font-feature-settings: 'pnum' on, 'lnum' on; */
     color: #004980;
     margin-bottom: 48px;
 }
@@ -58,7 +61,7 @@ body {
 .difficulty-selection__level {
     width: 98px;
     height: 98px;
-    background: #ffffff;
+    background: #fff;
     border-radius: 12px;
     font-style: normal;
     font-weight: 400;
@@ -73,11 +76,11 @@ body {
 
 .difficulty-selection__level_focus {
     background: #0080c1;
-    color: #ffffff;
+    color: #fff;
 }
 
 .difficulty-selection__button {
-    font-family: 'Stratos';
+    font-family: Stratos;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -85,7 +88,7 @@ body {
     background: #7ac100;
     border: none;
     border-radius: 12px;
-    color: #ffffff;
+    color: #fff;
     box-sizing: border-box;
     width: 246px;
     height: 50px;
@@ -116,7 +119,7 @@ body {
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     box-sizing: border-box;
     cursor: pointer;
 }
@@ -143,7 +146,7 @@ body {
 .inverted-card {
     width: 95px;
     height: 133px;
-    background: #ffffff;
+    background: #fff;
     border-radius: 4px;
     background-image: url('../img/shirt.svg');
     cursor: pointer;
@@ -151,14 +154,14 @@ body {
 
 .inverted-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 7px #888888;
+    box-shadow: 0 0 7px #888;
 }
 
 .card {
     display: flex;
     width: 95px;
     height: 133px;
-    background: #ffffff;
+    background: #fff;
     border-radius: 4px;
     box-sizing: border-box;
     position: relative;
@@ -194,12 +197,12 @@ body {
 .card__title {
     position: absolute;
     left: 6px;
-    top: 0px;
+    top: 0;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    color: #000000;
+    color: #000;
 }
 
 .card__box-title_rotate {
@@ -214,6 +217,6 @@ body {
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    color: #000000;
+    color: #000;
     transform: rotate(-180deg);
 }

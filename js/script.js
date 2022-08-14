@@ -27,5 +27,5 @@ window.application = {
 
     renderBlock: function (blockName, container) {
         window.application.blocks[blockName](container);
-    }
+    },
 };
