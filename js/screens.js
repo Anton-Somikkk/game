@@ -28,9 +28,15 @@ function renderGameScreen() {
 
     function generateDataArray() {
         window.application.cardsCollection = [];
+        const suitCardNumber = 4;
+        const titleCardNumber = 9;
         for (let i = 0; i < window.application.cardsNumber / 2; i++) {
-            window.application.randomSuit = Math.floor(Math.random() * 4);
-            window.application.randomTitle = Math.floor(Math.random() * 9);
+            window.application.randomSuit = Math.floor(
+                Math.random() * suitCardNumber
+            );
+            window.application.randomTitle = Math.floor(
+                Math.random() * titleCardNumber
+            );
             window.application.cardsCollection.push([
                 i,
                 window.application.randomTitle,
