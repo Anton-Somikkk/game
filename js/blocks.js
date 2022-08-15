@@ -18,7 +18,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-cards_count': '6',
+                                'data-cardscount': '6',
                             },
                             content: '1',
                         },
@@ -27,7 +27,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-cards_count': '12',
+                                'data-cardscount': '12',
                             },
                             content: '2',
                         },
@@ -36,7 +36,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-cards_count': '18',
+                                'data-cardscount': '18',
                             },
                             content: '3',
                         },
@@ -60,20 +60,19 @@ function renderDifficultySelectionBlock() {
     const difficultySelectionBlock = document.querySelector(
         '.difficulty-selection'
     );
-    //const button = document.querySelector('.difficulty-selection__button');
 
     difficultySelectionBlock.addEventListener('click', (event) => {
         const { target } = event;
         event.preventDefault();
 
-        if (target.dataset.cards_count) {
+        if (target.dataset.cardscount) {
             target.parentElement.childNodes.forEach((element) => {
                 element.classList.remove('difficulty-selection__level_focus');
             });
 
             target.classList.add('difficulty-selection__level_focus');
 
-            window.application.cardsNumber = target.dataset.cards_count;
+            window.application.cardsNumber = target.dataset.cardscount;
         }
 
         if (target.dataset.button_start && window.application.cardsNumber > 0) {
