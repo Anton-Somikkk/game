@@ -1,75 +1,73 @@
+/* stylelint-disable prettier/prettier */
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable font-family-no-missing-generic-family-keyword */
+
 * {
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Stratos';
+    font-family: Stratos;
 }
 
 .center {
-    padding-left: calc(50% - 1024px/2);
-    padding-right: calc(50% - 1024px/2);
+    padding-left: calc(50% - 1024px / 2);
+    padding-right: calc(50% - 1024px / 2);
 }
 
 .game {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(0, 73, 128, 1);
+    background-color: #004980;
     height: 100vh;
-    padding-top: 30px;
-  
+    padding-top: 20px;
 }
 
 .difficulty-selection {
-
     position: fixed;
-            z-index: 100; 
-            top: calc(50% - 230px);
-            left: calc(50% - 240px);
+    z-index: 100;
+    top: calc(50% - 230px);
+    left: calc(50% - 240px);
     padding-top: 52px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 480px;
     height: 459px;
-    background: #C2F5FF;
+    background: #c2f5ff;
     border-radius: 12px;
     box-sizing: border-box;
 }
 
 .difficulty-selection__title {
-
     font-style: normal;
     font-weight: 400;
     font-size: 40px;
     line-height: 48px;
     max-width: 208px;
     text-align: center;
-    /* font-feature-settings: 'pnum' on, 'lnum' on; */
     color: #004980;
     margin-bottom: 48px;
 }
 
 .difficulty-selection__box {
-
     display: flex;
     gap: 24px;
     margin-bottom: 67px;
 }
 
 .difficulty-selection__level {
-
     width: 98px;
     height: 98px;
-    background: #FFFFFF;
+    background: #fff;
     border-radius: 12px;
     font-style: normal;
     font-weight: 400;
     font-size: 64px;
     line-height: 72px;
-    color: #0080C1;
+    color: #0080c1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,39 +75,67 @@ body {
 }
 
 .difficulty-selection__level_focus {
-    
-    background: #0080C1;
-    color: #FFFFFF;
+    background: #0080c1;
+    color: #fff;
 }
 
 .difficulty-selection__button {
-    font-family: 'Stratos';
+    font-family: Stratos;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    background: #7AC100;
+    background: #7ac100;
     border: none;
     border-radius: 12px;
-    color: #FFFFFF;
+    color: #fff;
     box-sizing: border-box;
     width: 246px;
     height: 50px;
     cursor: pointer;
 }
 
-.difficulty-selection__button:hover { 
-    background: #8ddf00; 
-} 
+.difficulty-selection__button:hover {
+    background: #8ddf00;
+}
 
-.difficulty-selection__button:active { 
-    background: #5e9400; 
+.difficulty-selection__button:active {
+    background: #5e9400;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    width: 647px;
+}
+
+.header__start-again-button {
+    width: 246px;
+    height: 50px;
+    background: #7ac100;
+    border-radius: 12px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.header__start-again-button:hover {
+    background: #8ddf00;
+}
+
+.header__start-again-button:active {
+    background: #5e9400;
 }
 
 .game-box {
-    display: flex; 
+    display: flex;
     align-items: center;
-    align-content: center;
+    align-content: flex-start;
     flex-wrap: wrap;
     gap: 15px 15px;
     box-sizing: border-box;
@@ -120,16 +146,22 @@ body {
 .inverted-card {
     width: 95px;
     height: 133px;
-    background: #FFFFFF;
+    background: #fff;
     border-radius: 4px;
     background-image: url('../img/shirt.svg');
+    cursor: pointer;
+}
+
+.inverted-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 7px #888;
 }
 
 .card {
     display: flex;
     width: 95px;
     height: 133px;
-    background: #FFFFFF;
+    background: #fff;
     border-radius: 4px;
     box-sizing: border-box;
     position: relative;
@@ -138,46 +170,53 @@ body {
 
 .card__image_big {
     position: absolute;
-        left: 33px;
-        top: 54px;
-        z-index: 60;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 60;
     height: 25px;
 }
 
 .card__image {
     position: absolute;
-        left: 9px;
-        top: 29px;
+    left: 9px;
+    top: 29px;
     height: 6px;
 }
 
 .card__image_rotate {
     position: absolute;
-        left: 82.37px;
-        top: 97px;
+    left: 82.37px;
+    top: 97px;
     height: 6px;
     transform: rotate(-180deg);
 }
 
 .card__title {
     position: absolute;
-        left: 6px;
-        top: 0px;
+    left: 6px;
+    top: 0;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    color: #000000;
+    color: #000;
+}
+
+.card__box-title_rotate {
+    position: absolute;
+    left: 61px;
+    top: 100px;
+    width: 30px;
 }
 
 .card__title_rotate {
-    position: absolute;
-        left: 79px;
-        top: 100px;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    color: #000000;
+    color: #000;
     transform: rotate(-180deg);
 }

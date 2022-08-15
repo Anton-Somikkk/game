@@ -1,0 +1,37 @@
+{
+    "name": "1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "http-server -p 3004",
+        "format": "prettier --write ./js/",
+        "Lint:js": "eslint ./js**/*.js",
+        "lint:css": "stylelint ./css**/*.css"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Anton-Somikkk/game.git"
+    },
+    "author": "kuvshinoffav@gmail.com",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Anton-Somikkk/game/issues"
+    },
+    "homepage": "https://github.com/Anton-Somikkk/game#readme",
+    "devDependencies": {
+        "eslint": "^8.22.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^8.0.1",
+        "prettier": "^2.7.1",
+        "stylelint": "^14.10.0",
+        "stylelint-config-prettier": "^9.0.3",
+        "stylelint-config-standard": "^27.0.0",
+        "stylelint-prettier": "^2.0.0"
+    },
+    "dependencies": {
+        "http-server": "^14.1.1"
+    }
+}
