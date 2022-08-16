@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 function renderDifficultySelectionBlock() {
     function createBlock() {
         return {
@@ -18,7 +19,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-cardscount': '6',
+                                'data-cards': '6',
                             },
                             content: '1',
                         },
@@ -27,7 +28,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-cardscount': '12',
+                                'data-cards': '12',
                             },
                             content: '2',
                         },
@@ -36,7 +37,7 @@ function renderDifficultySelectionBlock() {
                             tag: 'div',
                             cls: 'difficulty-selection__level',
                             attrs: {
-                                'data-cardscount': '18',
+                                'data-cards': '18',
                             },
                             content: '3',
                         },
@@ -65,14 +66,14 @@ function renderDifficultySelectionBlock() {
         const { target } = event;
         event.preventDefault();
 
-        if (target.dataset.cardscount) {
+        if (target.dataset.cards) {
             target.parentElement.childNodes.forEach((element) => {
                 element.classList.remove('difficulty-selection__level_focus');
             });
 
             target.classList.add('difficulty-selection__level_focus');
 
-            window.application.cardsNumber = target.dataset.cardscount;
+            window.application.cardsNumber = target.dataset.cards;
         }
 
         if (target.dataset.button_start && window.application.cardsNumber > 0) {

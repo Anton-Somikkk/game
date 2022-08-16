@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 function renderStartScreen() {
     window.application.renderBlock('start-block', game);
 }
