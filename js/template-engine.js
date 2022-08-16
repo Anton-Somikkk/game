@@ -40,3 +40,4 @@ function templateEngine(block) {
 
     return result;
 }
+export default templateEngine;

@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import templateEngine from './template-engine.js';
 function renderDifficultySelectionBlock() {
     function createBlock() {
         return {
@@ -99,23 +100,23 @@ function renderCards(container) {
                 },
 
                 {
-                    tag: 'img',
-                    cls: 'card__image',
-                    attrs: {
-                        src: window.application.cards.cardSuitLittle[
+                    tag: 'div',
+                    cls: [
+                        'card__image',
+                        window.application.cards.cardSuitLittle[
                             window.application.randomSuit
                         ],
-                    },
+                    ],
                 },
 
                 {
-                    tag: 'img',
-                    cls: 'card__image_big',
-                    attrs: {
-                        src: window.application.cards.cardSuitBig[
+                    tag: 'div',
+                    cls: [
+                        'card__image_big',
+                        window.application.cards.cardSuitBig[
                             window.application.randomSuit
                         ],
-                    },
+                    ],
                 },
 
                 {
@@ -134,13 +135,11 @@ function renderCards(container) {
                 },
 
                 {
-                    tag: 'img',
-                    cls: 'card__image_rotate',
-                    attrs: {
-                        src: window.application.cards.cardSuitLittle[
-                            window.application.randomSuit
-                        ],
-                    },
+                    tag: 'div',
+                    cls: ['card__image_rotate', window.application.cards.cardSuitLittle[
+                        window.application.randomSuit
+                    ]],
+                  
                 },
             ],
         };
