@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 window.application = {
     blocks: {},
     screens: {},

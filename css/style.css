@@ -175,7 +175,6 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-    z-index: 60;
     height: 25px;
     background-repeat: no-repeat;
     background-position: center;
@@ -183,12 +182,12 @@ body {
 
 .card__image {
     position: absolute;
-    left: 9px;
-    top: 29px;
+    left: 10px;
+    top: 28px;
+    right: 0;
+    bottom: 0;
     height: 6px;
-    z-index: 65;
     background-repeat: no-repeat;
-    background-position: center;
 }
 
 .card__image_diamonds-little {
@@ -225,10 +224,13 @@ body {
 
 .card__image_rotate {
     position: absolute;
-    left: 82.37px;
+    left: 0;
     top: 97px;
+    right: 7px;
+    bottom: 0;
     height: 6px;
     transform: rotate(-180deg);
+    background-repeat: no-repeat;
 }
 
 .card__title {
