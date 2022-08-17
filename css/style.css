@@ -177,6 +177,8 @@ body {
     margin: auto;
     z-index: 60;
     height: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .card__image {
@@ -184,6 +186,41 @@ body {
     left: 9px;
     top: 29px;
     height: 6px;
+    z-index: 65;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card__image_diamonds-little {
+    background-image: url('../img/diamonds-little.svg');
+}
+
+.card__image_diamonds-big {
+    background-image: url('../img/diamonds.svg');
+}
+
+.card__image_clubs-little {
+    background-image: url('../img/clubs-little.svg');
+}
+
+.card__image_clubs-big {
+    background-image: url('../img/clubs.svg');
+}
+
+.card__image_hearts-little {
+    background-image: url('../img/hearts-little.svg');
+}
+
+.card__image_hearts-big {
+    background-image: url('../img/hearts.svg');
+}
+
+.card__image_peaks-little {
+    background-image: url('../img/peaks-little.svg');
+}
+
+.card__image_peaks-big {
+    background-image: url('../img/peaks.svg');
 }
 
 .card__image_rotate {

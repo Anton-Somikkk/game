@@ -28,12 +28,18 @@ module.exports = {
       },
       devtool:
     process.env.NODE_ENV === "production" ? false : "source-map",
+    devtool: process.env.NODE_ENV === "production" ? "hidden-source-map" : "source-map",
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         clean: true,
     },
     plugins: [
+        new CopyPlugin({
+            patterns: [
+              { from: "static", to: "static" },
+            ],
+          }),
         new HtmlWebpackPlugin({
             template: './index.html',
         }),
