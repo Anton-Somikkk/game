@@ -97,17 +97,22 @@ function renderGameScreen() {
             window.application.renderBlock('card', target);
 
             if (
-                window.application.resultOfMove.length !== 0 &&
-                window.application.resultOfMove !==
-                    window.application.cardsCollection[target.id]
+                (window.application.resultOfMove.length !== 0 &&
+                    window.application.resultOfMove[1] !==
+                        window.application.cardsCollection[target.id][1]) ||
+                (window.application.resultOfMove[2] !==
+                    window.application.cardsCollection[target.id][2] &&
+                    window.application.resultOfMove.length !== 0)
             ) {
                 setTimeout(() => {
-                    alert('Вы проиграли(');
+                    window.application.renderBlock('lose-block', game);
                 }, 200);
             } else if (
                 window.application.resultOfMove.length !== 0 &&
-                window.application.resultOfMove ===
-                    window.application.cardsCollection[target.id]
+                window.application.resultOfMove[1] ===
+                    window.application.cardsCollection[target.id][1] &&
+                window.application.resultOfMove[2] ===
+                    window.application.cardsCollection[target.id][2]
             ) {
                 window.application.resultOfMove = [];
                 window.application.stepNumber++;
@@ -123,7 +128,7 @@ function renderGameScreen() {
                 window.application.cardsNumber
             ) {
                 setTimeout(() => {
-                    alert('Вы выиграли)');
+                    window.application.renderBlock('win-block', game);
                 }, 200);
             }
         }

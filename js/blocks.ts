@@ -6,7 +6,9 @@ declare global {
     }
 }
 const game = document.querySelector('.game');
+import { container } from 'webpack';
 import templateEngine from './template-engine';
+
 function renderDifficultySelectionBlock() {
     function createBlock() {
         return {
@@ -16,7 +18,7 @@ function renderDifficultySelectionBlock() {
                 {
                     tag: 'h1',
                     cls: 'difficulty-selection__title',
-                    content: 'Change level',
+                    content: 'Выберите сложность',
                 },
 
                 {
@@ -58,7 +60,7 @@ function renderDifficultySelectionBlock() {
                     attrs: {
                         'data-button_start': '0',
                     },
-                    content: 'Start',
+                    content: 'Старт',
                 },
             ],
         };
@@ -157,5 +159,130 @@ function renderCards(container) {
     container.appendChild(templateEngine(createBlock()));
 }
 
+function renderWinBlock(container) {
+    function createBlock() {
+        return {
+            tag: 'div',
+            cls: ['result__background', 'center'],
+            content: [
+                {
+                    tag: 'div',
+                    cls: 'result__window',
+                    content: [
+                        {
+                            tag: 'div',
+                            cls: 'result__image_win',
+                        },
+
+                        {
+                            tag: 'h1',
+                            cls: 'result__title',
+                            content: 'Вы выиграли!',
+                        },
+
+                        {
+                            tag: 'div',
+                            cls: 'result__time-box',
+                            content: [
+                                {
+                                    tag: 'p',
+                                    cls: 'result__time-message',
+                                    content: 'Затраченное время',
+                                },
+
+                                {
+                                    tag: 'div',
+                                    cls: 'result__time',
+                                    content: '00:15',
+                                },
+                            ],
+                        },
+
+                        {
+                            tag: 'button',
+                            cls: 'result__button',
+                            attrs: {
+                                'data-button': 'play-again',
+                            },
+                            content: 'Играть снова',
+                        },
+                    ],
+                },
+            ],
+        };
+    }
+    container.appendChild(templateEngine(createBlock()));
+
+    const button = document.querySelector('.result__button');
+    button.addEventListener('click', (event) => {
+        // const { target } = event;
+        const target = event.target as HTMLTextAreaElement;
+        event.preventDefault();
+
+        if (target.dataset.button === 'play-again') {
+            game.innerHTML = '';
+
+            window.application.renderBlock('start-block', game);
+        }
+    });
+}
+
+function renderLoseBlock(container) {
+    function createBlock() {
+        return {
+            tag: 'div',
+            cls: ['result__background', 'center'],
+            content: [
+                {
+                    tag: 'div',
+                    cls: 'result__window',
+                    content: [
+                        {
+                            tag: 'div',
+                            cls: 'result__image_lose',
+                        },
+
+                        {
+                            tag: 'h1',
+                            cls: 'result__title',
+                            content: 'Вы проиграли!',
+                        },
+
+                        {
+                            tag: 'div',
+                            cls: 'result__time-box',
+                            content: [
+                                {
+                                    tag: 'p',
+                                    cls: 'result__time-message',
+                                    content: 'Затраченное время',
+                                },
+
+                                {
+                                    tag: 'div',
+                                    cls: 'result__time',
+                                    content: '00:15',
+                                },
+                            ],
+                        },
+
+                        {
+                            tag: 'button',
+                            cls: 'result__button',
+                            attrs: {
+                                'data-button': 'play-again',
+                            },
+                            content: 'Играть снова',
+                        },
+                    ],
+                },
+            ],
+        };
+    }
+    container.appendChild(templateEngine(createBlock()));
+}
+
 window.application.blocks['start-block'] = renderDifficultySelectionBlock;
 window.application.blocks['card'] = renderCards;
+window.application.blocks['win-block'] = renderWinBlock;
+window.application.blocks['lose-block'] = renderLoseBlock;
