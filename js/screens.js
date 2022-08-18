@@ -55,6 +55,8 @@ function renderGameScreen() {
 
     function handOutInvertedCard() {
         gameBox.innerHTML = '';
+        window.application.resultOfMove = [];
+        window.application.stepNumber = 0;
 
         for (let i = 0; i < window.application.cardsNumber; i++) {
             const invertedCard = document.createElement('div');
@@ -91,6 +93,37 @@ function renderGameScreen() {
             target.classList.add('card');
 
             window.application.renderBlock('card', target);
+
+            if (
+                window.application.resultOfMove.length !== 0 &&
+                window.application.resultOfMove !==
+                    window.application.cardsCollection[target.id]
+            ) {
+                setTimeout(() => {
+                    alert('Вы проиграли(');
+                }, 200);
+            } else if (
+                window.application.resultOfMove.length !== 0 &&
+                window.application.resultOfMove ===
+                    window.application.cardsCollection[target.id]
+            ) {
+                window.application.resultOfMove = [];
+                window.application.stepNumber++;
+            } else if (window.application.resultOfMove.length === 0) {
+                window.application.stepNumber++;
+
+                window.application.resultOfMove =
+                    window.application.cardsCollection[target.id];
+            }
+
+            if (
+                String(window.application.stepNumber) ===
+                window.application.cardsNumber
+            ) {
+                setTimeout(() => {
+                    alert('Вы выиграли)');
+                }, 200);
+            }
         }
 
         if (target.dataset.button === 'again') {

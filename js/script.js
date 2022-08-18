@@ -21,7 +21,8 @@ window.application = {
     randomTitle: undefined,
     randomSuit: undefined,
     cardsCollection: [],
-
+    resultOfMove: [],
+    stepNumber: 0,
     renderScreen: function (screenName) {
         window.application.screens[screenName]();
     },
