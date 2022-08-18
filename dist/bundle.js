@@ -1,421 +1,5 @@
-/* eslint-disable camelcase */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-
-/***/ "./js/blocks.js":
-/*!**********************!*\
-  !*** ./js/blocks.js ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _template_engine_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./template-engine.js */ "./js/template-engine.js");
-/* eslint-disable prettier/prettier */
-
-function renderDifficultySelectionBlock() {
-    function createBlock() {
-        return {
-            tag: 'div',
-            cls: 'difficulty-selection',
-            content: [
-                {
-                    tag: 'h1',
-                    cls: 'difficulty-selection__title',
-                    content: 'Change level',
-                },
-
-                {
-                    tag: 'div',
-                    cls: 'difficulty-selection__box',
-                    content: [
-                        {
-                            tag: 'div',
-                            cls: 'difficulty-selection__level',
-                            attrs: {
-                                'data-cards': '6',
-                            },
-                            content: '1',
-                        },
-
-                        {
-                            tag: 'div',
-                            cls: 'difficulty-selection__level',
-                            attrs: {
-                                'data-cards': '12',
-                            },
-                            content: '2',
-                        },
-
-                        {
-                            tag: 'div',
-                            cls: 'difficulty-selection__level',
-                            attrs: {
-                                'data-cards': '18',
-                            },
-                            content: '3',
-                        },
-                    ],
-                },
-
-                {
-                    tag: 'button',
-                    cls: 'difficulty-selection__button',
-                    attrs: {
-                        'data-button_start': '0',
-                    },
-                    content: 'Start',
-                },
-            ],
-        };
-    }
-
-    game.appendChild((0,_template_engine_js__WEBPACK_IMPORTED_MODULE_0__["default"])(createBlock()));
-
-    const difficultySelectionBlock = document.querySelector(
-        '.difficulty-selection'
-    );
-
-    difficultySelectionBlock.addEventListener('click', (event) => {
-        const { target } = event;
-        event.preventDefault();
-
-        if (target.dataset.cards) {
-            target.parentElement.childNodes.forEach((element) => {
-                element.classList.remove('difficulty-selection__level_focus');
-            });
-
-            target.classList.add('difficulty-selection__level_focus');
-
-            window.application.cardsNumber = target.dataset.cards;
-        }
-
-        if (target.dataset.button_start && window.application.cardsNumber > 0) {
-            game.innerHTML = '';
-            window.application.renderScreen('game-screen');
-        }
-    });
-}
-
-function renderCards(container) {
-    function createBlock() {
-        return {
-            tag: 'div',
-            cls: 'card',
-            content: [
-                {
-                    tag: 'p',
-                    cls: 'card__title',
-                    content:
-                        window.application.cards.cardTitle[
-                            window.application.randomTitle
-                        ],
-                },
-
-                {
-                    tag: 'div',
-                    cls: [
-                        'card__image',
-                        window.application.cards.cardSuitLittle[
-                            window.application.randomSuit
-                        ],
-                    ],
-                },
-
-                {
-                    tag: 'div',
-                    cls: [
-                        'card__image_big',
-                        window.application.cards.cardSuitBig[
-                            window.application.randomSuit
-                        ],
-                    ],
-                },
-
-                {
-                    tag: 'div',
-                    cls: 'card__box-title_rotate',
-                    content: [
-                        {
-                            tag: 'p',
-                            cls: 'card__title_rotate',
-                            content:
-                                window.application.cards.cardTitle[
-                                    window.application.randomTitle
-                                ],
-                        },
-                    ],
-                },
-
-                {
-                    tag: 'div',
-                    cls: ['card__image_rotate', window.application.cards.cardSuitLittle[
-                        window.application.randomSuit
-                    ]],
-                  
-                },
-            ],
-        };
-    }
-    container.appendChild((0,_template_engine_js__WEBPACK_IMPORTED_MODULE_0__["default"])(createBlock()));
-}
-
-window.application.blocks['start-block'] = renderDifficultySelectionBlock;
-window.application.blocks['card'] = renderCards;
-
-
-/***/ }),
-
-/***/ "./js/screens.js":
-/*!***********************!*\
-  !*** ./js/screens.js ***!
-  \***********************/
-/***/ (() => {
-
-/* eslint-disable prettier/prettier */
-function renderStartScreen() {
-    window.application.renderBlock('start-block', game);
-}
-
-function renderGameScreen() {
-    const headerGame = document.createElement('div');
-    headerGame.classList.add('header');
-    game.appendChild(headerGame);
-
-    const timerGame = document.createElement('div');
-    timerGame.classList.add('header__timer');
-    headerGame.appendChild(timerGame);
-
-    const startAgainButton = document.createElement('button');
-    startAgainButton.classList.add('header__start-again-button');
-    startAgainButton.textContent = 'Начать заново';
-    startAgainButton.setAttribute('data-button', 'again');
-    headerGame.appendChild(startAgainButton);
-
-    const gameBox = document.createElement('div');
-    gameBox.classList.add('game-box');
-    game.appendChild(gameBox);
-
-    generateDataArray();
-
-    setTimeout(() => handOutFrontCard(), 200);
-    setTimeout(() => handOutInvertedCard(), 5000);
-
-    function generateDataArray() {
-        window.application.cardsCollection = [];
-        const suitCardNumber = 4;
-        const titleCardNumber = 9;
-        for (let i = 0; i < window.application.cardsNumber / 2; i++) {
-            window.application.randomSuit = Math.floor(
-                Math.random() * suitCardNumber
-            );
-            window.application.randomTitle = Math.floor(
-                Math.random() * titleCardNumber
-            );
-            window.application.cardsCollection.push([
-                i,
-                window.application.randomTitle,
-                window.application.randomSuit,
-            ]);
-        }
-
-        window.application.cardsCollection = [
-            ...window.application.cardsCollection,
-            ...window.application.cardsCollection,
-        ];
-        window.application.cardsCollection.sort(() => Math.random() - 0.5);
-        handOutInvertedCard();
-    }
-
-    function handOutInvertedCard() {
-        gameBox.innerHTML = '';
-        window.application.resultOfMove = [];
-        window.application.stepNumber = 0;
-
-        for (let i = 0; i < window.application.cardsNumber; i++) {
-            const invertedCard = document.createElement('div');
-            invertedCard.classList.add('inverted-card');
-            invertedCard.setAttribute('id', i);
-            invertedCard.setAttribute('data-card', 'inverted');
-
-            gameBox.appendChild(invertedCard);
-        }
-    }
-
-    function handOutFrontCard() {
-        gameBox.innerHTML = '';
-        for (let i = 0; i < window.application.cardsNumber; i++) {
-            window.application.randomSuit =
-                window.application.cardsCollection[i][2];
-            window.application.randomTitle =
-                window.application.cardsCollection[i][1];
-
-            window.application.renderBlock('card', gameBox);
-        }
-    }
-
-    game.addEventListener('click', (event) => {
-        const { target } = event;
-
-        if (target.dataset.card === 'inverted') {
-            window.application.randomSuit =
-                window.application.cardsCollection[target.id][2];
-            window.application.randomTitle =
-                window.application.cardsCollection[target.id][1];
-
-            target.classList.remove('inverted-card');
-            target.classList.add('card');
-
-            window.application.renderBlock('card', target);
-
-            if (
-                window.application.resultOfMove.length !== 0 &&
-                window.application.resultOfMove !==
-                    window.application.cardsCollection[target.id]
-            ) {
-                setTimeout(() => {
-                    alert('Вы проиграли(');
-                }, 200);
-            } else if (
-                window.application.resultOfMove.length !== 0 &&
-                window.application.resultOfMove ===
-                    window.application.cardsCollection[target.id]
-            ) {
-                window.application.resultOfMove = [];
-                window.application.stepNumber++;
-            } else if (window.application.resultOfMove.length === 0) {
-                window.application.stepNumber++;
-
-                window.application.resultOfMove =
-                    window.application.cardsCollection[target.id];
-            }
-
-            if (
-                String(window.application.stepNumber) ===
-                window.application.cardsNumber
-            ) {
-                setTimeout(() => {
-                    alert('Вы выиграли)');
-                }, 200);
-            }
-        }
-
-        if (target.dataset.button === 'again') {
-            gameBox.innerHTML = '';
-            generateDataArray();
-            setTimeout(() => handOutFrontCard(), 200);
-            setTimeout(() => handOutInvertedCard(), 5000);
-        }
-    });
-}
-
-window.application.screens['start-screen'] = renderStartScreen;
-window.application.screens['game-screen'] = renderGameScreen;
-window.application.renderScreen('start-screen');
-
-
-/***/ }),
-
-/***/ "./js/script.js":
-/*!**********************!*\
-  !*** ./js/script.js ***!
-  \**********************/
-/***/ (() => {
-
-/* eslint-disable prettier/prettier */
-window.application = {
-    blocks: {},
-    screens: {},
-    cardsNumber: 0,
-    cards: {
-        cardTitle: ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
-        cardSuitLittle: [
-            'card__image_diamonds-little',
-            'card__image_clubs-little',
-            'card__image_hearts-little',
-            'card__image_peaks-little',
-        ],
-        cardSuitBig: [
-            'card__image_diamonds-big',
-            'card__image_clubs-big',
-            'card__image_hearts-big',
-            'card__image_peaks-big',
-        ],
-    },
-    randomTitle: undefined,
-    randomSuit: undefined,
-    cardsCollection: [],
-    resultOfMove: [],
-    stepNumber: 0,
-    renderScreen: function (screenName) {
-        window.application.screens[screenName]();
-    },
-
-    renderBlock: function (blockName, container) {
-        window.application.blocks[blockName](container);
-    },
-};
-
-
-/***/ }),
-
-/***/ "./js/template-engine.js":
-/*!*******************************!*\
-  !*** ./js/template-engine.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-function templateEngine(block) {
-    if (block === undefined || block === null || block === false) {
-        return document.createTextNode('');
-    }
-    if (
-        typeof block === 'string' ||
-        typeof block === 'number' ||
-        block === true
-    ) {
-        return document.createTextNode(block);
-    }
-    if (Array.isArray(block)) {
-        const fragment = document.createDocumentFragment();
-
-        block.forEach((element) => {
-            fragment.appendChild(templateEngine(element));
-        });
-
-        return fragment;
-    }
-
-    const result = document.createElement(block.tag);
-
-    if (block.cls) {
-        const classes = [].concat(block.cls);
-        classes.forEach((cls) => {
-            result.classList.add(cls);
-        });
-    }
-
-    if (block.attrs) {
-        const keys = Object.keys(block.attrs);
-
-        keys.forEach((key) => {
-            result.setAttribute(key, block.attrs[key]);
-        });
-    }
-
-    result.appendChild(templateEngine(block.content));
-
-    return result;
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (templateEngine);
-
-
-/***/ }),
 
 /***/ "./node_modules/css-loader/dist/cjs.js!./css/style.css":
 /*!*************************************************************!*\
@@ -638,7 +222,7 @@ module.exports = function (cssWithMappingToString) {
       for (var k = 0; k < this.length; k++) {
         var id = this[k][0];
 
-        if (id !== null) {
+        if (id != null) {
           alreadyImportedModules[id] = true;
         }
       }
@@ -1177,6 +761,361 @@ function styleTagTransform(css, styleElement) {
 }
 
 module.exports = styleTagTransform;
+
+/***/ }),
+
+/***/ "./js/blocks.ts":
+/*!**********************!*\
+  !*** ./js/blocks.ts ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _template_engine__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./template-engine */ "./js/template-engine.ts");
+/* eslint-disable prettier/prettier */
+var game = document.querySelector('.game');
+
+function renderDifficultySelectionBlock() {
+    function createBlock() {
+        return {
+            tag: 'div',
+            cls: 'difficulty-selection',
+            content: [
+                {
+                    tag: 'h1',
+                    cls: 'difficulty-selection__title',
+                    content: 'Change level',
+                },
+                {
+                    tag: 'div',
+                    cls: 'difficulty-selection__box',
+                    content: [
+                        {
+                            tag: 'div',
+                            cls: 'difficulty-selection__level',
+                            attrs: {
+                                'data-cards': '6',
+                            },
+                            content: '1',
+                        },
+                        {
+                            tag: 'div',
+                            cls: 'difficulty-selection__level',
+                            attrs: {
+                                'data-cards': '12',
+                            },
+                            content: '2',
+                        },
+                        {
+                            tag: 'div',
+                            cls: 'difficulty-selection__level',
+                            attrs: {
+                                'data-cards': '18',
+                            },
+                            content: '3',
+                        },
+                    ],
+                },
+                {
+                    tag: 'button',
+                    cls: 'difficulty-selection__button',
+                    attrs: {
+                        'data-button_start': '0',
+                    },
+                    content: 'Start',
+                },
+            ],
+        };
+    }
+    game.appendChild((0,_template_engine__WEBPACK_IMPORTED_MODULE_0__["default"])(createBlock()));
+    var difficultySelectionBlock = document.querySelector('.difficulty-selection');
+    difficultySelectionBlock.addEventListener('click', function (event) {
+        //const { target } = event;
+        var target = event.target;
+        event.preventDefault();
+        if (target.dataset.cards) {
+            target.parentElement.childNodes.forEach(function (element) {
+                element.classList.remove('difficulty-selection__level_focus');
+            });
+            target.classList.add('difficulty-selection__level_focus');
+            window.application.cardsNumber = target.dataset.cards;
+        }
+        if (target.dataset.button_start && window.application.cardsNumber > 0) {
+            game.innerHTML = '';
+            window.application.renderScreen('game-screen');
+        }
+    });
+}
+function renderCards(container) {
+    function createBlock() {
+        return {
+            tag: 'div',
+            cls: 'card',
+            content: [
+                {
+                    tag: 'p',
+                    cls: 'card__title',
+                    content: window.application.cards.cardTitle[window.application.randomTitle],
+                },
+                {
+                    tag: 'div',
+                    cls: [
+                        'card__image',
+                        window.application.cards.cardSuitLittle[window.application.randomSuit],
+                    ],
+                },
+                {
+                    tag: 'div',
+                    cls: [
+                        'card__image_big',
+                        window.application.cards.cardSuitBig[window.application.randomSuit],
+                    ],
+                },
+                {
+                    tag: 'div',
+                    cls: 'card__box-title_rotate',
+                    content: [
+                        {
+                            tag: 'p',
+                            cls: 'card__title_rotate',
+                            content: window.application.cards.cardTitle[window.application.randomTitle],
+                        },
+                    ],
+                },
+                {
+                    tag: 'div',
+                    cls: [
+                        'card__image_rotate',
+                        window.application.cards.cardSuitLittle[window.application.randomSuit],
+                    ],
+                },
+            ],
+        };
+    }
+    container.appendChild((0,_template_engine__WEBPACK_IMPORTED_MODULE_0__["default"])(createBlock()));
+}
+window.application.blocks['start-block'] = renderDifficultySelectionBlock;
+window.application.blocks['card'] = renderCards;
+
+
+/***/ }),
+
+/***/ "./js/screens.ts":
+/*!***********************!*\
+  !*** ./js/screens.ts ***!
+  \***********************/
+/***/ (function() {
+
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+/* eslint-disable prettier/prettier */
+var game = document.querySelector('.game');
+function renderStartScreen() {
+    window.application.renderBlock('start-block', game);
+}
+function renderGameScreen() {
+    var headerGame = document.createElement('div');
+    headerGame.classList.add('header');
+    game.appendChild(headerGame);
+    var timerGame = document.createElement('div');
+    timerGame.classList.add('header__timer');
+    headerGame.appendChild(timerGame);
+    var startAgainButton = document.createElement('button');
+    startAgainButton.classList.add('header__start-again-button');
+    startAgainButton.textContent = 'Начать заново';
+    startAgainButton.setAttribute('data-button', 'again');
+    headerGame.appendChild(startAgainButton);
+    var gameBox = document.createElement('div');
+    gameBox.classList.add('game-box');
+    game.appendChild(gameBox);
+    generateDataArray();
+    setTimeout(function () { return handOutFrontCard(); }, 200);
+    setTimeout(function () { return handOutInvertedCard(); }, 5000);
+    function generateDataArray() {
+        window.application.cardsCollection = [];
+        var suitCardNumber = 4;
+        var titleCardNumber = 9;
+        for (var i = 0; i < window.application.cardsNumber / 2; i++) {
+            window.application.randomSuit = Math.floor(Math.random() * suitCardNumber);
+            window.application.randomTitle = Math.floor(Math.random() * titleCardNumber);
+            window.application.cardsCollection.push([
+                i,
+                window.application.randomTitle,
+                window.application.randomSuit,
+            ]);
+        }
+        window.application.cardsCollection = __spreadArray(__spreadArray([], window.application.cardsCollection, true), window.application.cardsCollection, true);
+        window.application.cardsCollection.sort(function () { return Math.random() - 0.5; });
+        handOutInvertedCard();
+    }
+    function handOutInvertedCard() {
+        gameBox.innerHTML = '';
+        window.application.resultOfMove = [];
+        window.application.stepNumber = 0;
+        for (var i = 0; i < window.application.cardsNumber; i++) {
+            var invertedCard = document.createElement('div');
+            invertedCard.classList.add('inverted-card');
+            invertedCard.setAttribute('id', String(i));
+            invertedCard.setAttribute('data-card', 'inverted');
+            gameBox.appendChild(invertedCard);
+        }
+    }
+    function handOutFrontCard() {
+        gameBox.innerHTML = '';
+        for (var i = 0; i < window.application.cardsNumber; i++) {
+            window.application.randomSuit =
+                window.application.cardsCollection[i][2];
+            window.application.randomTitle =
+                window.application.cardsCollection[i][1];
+            window.application.renderBlock('card', gameBox);
+        }
+    }
+    game.addEventListener('click', function (event) {
+        //const { target } = event;
+        var target = event.target;
+        if (target.dataset.card === 'inverted') {
+            window.application.randomSuit =
+                window.application.cardsCollection[target.id][2];
+            window.application.randomTitle =
+                window.application.cardsCollection[target.id][1];
+            target.classList.remove('inverted-card');
+            target.classList.add('card');
+            window.application.renderBlock('card', target);
+            if (window.application.resultOfMove.length !== 0 &&
+                window.application.resultOfMove !==
+                    window.application.cardsCollection[target.id]) {
+                setTimeout(function () {
+                    alert('Вы проиграли(');
+                }, 200);
+            }
+            else if (window.application.resultOfMove.length !== 0 &&
+                window.application.resultOfMove ===
+                    window.application.cardsCollection[target.id]) {
+                window.application.resultOfMove = [];
+                window.application.stepNumber++;
+            }
+            else if (window.application.resultOfMove.length === 0) {
+                window.application.stepNumber++;
+                window.application.resultOfMove =
+                    window.application.cardsCollection[target.id];
+            }
+            if (String(window.application.stepNumber) ===
+                window.application.cardsNumber) {
+                setTimeout(function () {
+                    alert('Вы выиграли)');
+                }, 200);
+            }
+        }
+        if (target.dataset.button === 'again') {
+            gameBox.innerHTML = '';
+            generateDataArray();
+            setTimeout(function () { return handOutFrontCard(); }, 200);
+            setTimeout(function () { return handOutInvertedCard(); }, 5000);
+        }
+    });
+}
+window.application.screens['start-screen'] = renderStartScreen;
+window.application.screens['game-screen'] = renderGameScreen;
+window.application.renderScreen('start-screen');
+
+
+/***/ }),
+
+/***/ "./js/script.ts":
+/*!**********************!*\
+  !*** ./js/script.ts ***!
+  \**********************/
+/***/ (() => {
+
+/* eslint-disable prettier/prettier */
+window.application = {
+    blocks: {},
+    screens: {},
+    cardsNumber: 0,
+    cards: {
+        cardTitle: ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
+        cardSuitLittle: [
+            'card__image_diamonds-little',
+            'card__image_clubs-little',
+            'card__image_hearts-little',
+            'card__image_peaks-little',
+        ],
+        cardSuitBig: [
+            'card__image_diamonds-big',
+            'card__image_clubs-big',
+            'card__image_hearts-big',
+            'card__image_peaks-big',
+        ],
+    },
+    randomTitle: undefined,
+    randomSuit: undefined,
+    cardsCollection: [],
+    resultOfMove: [],
+    stepNumber: 0,
+    renderScreen: function (screenName) {
+        window.application.screens[screenName]();
+    },
+    renderBlock: function (blockName, container) {
+        window.application.blocks[blockName](container);
+    },
+};
+
+
+/***/ }),
+
+/***/ "./js/template-engine.ts":
+/*!*******************************!*\
+  !*** ./js/template-engine.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function templateEngine(block) {
+    if (block === undefined || block === null || block === false) {
+        return document.createTextNode('');
+    }
+    if (typeof block === 'string' ||
+        typeof block === 'number' ||
+        block === true) {
+        return document.createTextNode(block);
+    }
+    if (Array.isArray(block)) {
+        var fragment_1 = document.createDocumentFragment();
+        block.forEach(function (element) {
+            fragment_1.appendChild(templateEngine(element));
+        });
+        return fragment_1;
+    }
+    var result = document.createElement(block.tag);
+    if (block.cls) {
+        var classes = [].concat(block.cls);
+        classes.forEach(function (cls) {
+            result.classList.add(cls);
+        });
+    }
+    if (block.attrs) {
+        var keys = Object.keys(block.attrs);
+        keys.forEach(function (key) {
+            result.setAttribute(key, block.attrs[key]);
+        });
+    }
+    result.appendChild(templateEngine(block.content));
+    return result;
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (templateEngine);
+
 
 /***/ }),
 
@@ -1739,7 +1678,7 @@ module.exports = __webpack_require__.p + "a766573daf1e73dad53a.svg";
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -1858,19 +1797,18 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 /*!*********************!*\
-  !*** ./js/index.js ***!
+  !*** ./js/index.ts ***!
   \*********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _template_engine_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./template-engine.js */ "./js/template-engine.js");
-/* harmony import */ var _script_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./script.js */ "./js/script.js");
-/* harmony import */ var _script_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_script_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _blocks_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blocks.js */ "./js/blocks.js");
-/* harmony import */ var _screens_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./screens.js */ "./js/screens.js");
-/* harmony import */ var _screens_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_screens_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _template_engine_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./template-engine.ts */ "./js/template-engine.ts");
+/* harmony import */ var _script_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./script.ts */ "./js/script.ts");
+/* harmony import */ var _script_ts__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_script_ts__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _blocks_ts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blocks.ts */ "./js/blocks.ts");
+/* harmony import */ var _screens_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./screens.ts */ "./js/screens.ts");
+/* harmony import */ var _screens_ts__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_screens_ts__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _css_stylesheet_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../css/stylesheet.css */ "./css/stylesheet.css");
 /* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../css/style.css */ "./css/style.css");
 /* eslint-disable prettier/prettier */
-
 
 
 

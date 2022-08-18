@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+const game = document.querySelector('.game');
 function renderStartScreen() {
     window.application.renderBlock('start-block', game);
 }
@@ -61,7 +62,7 @@ function renderGameScreen() {
         for (let i = 0; i < window.application.cardsNumber; i++) {
             const invertedCard = document.createElement('div');
             invertedCard.classList.add('inverted-card');
-            invertedCard.setAttribute('id', i);
+            invertedCard.setAttribute('id', String(i));
             invertedCard.setAttribute('data-card', 'inverted');
 
             gameBox.appendChild(invertedCard);
@@ -81,7 +82,8 @@ function renderGameScreen() {
     }
 
     game.addEventListener('click', (event) => {
-        const { target } = event;
+        //const { target } = event;
+        const target = event.target as HTMLTextAreaElement;
 
         if (target.dataset.card === 'inverted') {
             window.application.randomSuit =

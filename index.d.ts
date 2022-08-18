@@ -1,0 +1,3 @@
+interface ChildNode {
+    classList: DOMTokenList;
+}
