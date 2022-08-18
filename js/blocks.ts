@@ -1,5 +1,12 @@
 /* eslint-disable prettier/prettier */
-import templateEngine from './template-engine.js';
+
+declare global {
+    interface Window {
+        application?: any;
+    }
+}
+const game = document.querySelector('.game');
+import templateEngine from './template-engine';
 function renderDifficultySelectionBlock() {
     function createBlock() {
         return {
@@ -64,7 +71,8 @@ function renderDifficultySelectionBlock() {
     );
 
     difficultySelectionBlock.addEventListener('click', (event) => {
-        const { target } = event;
+        //const { target } = event;
+        const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
         if (target.dataset.cards) {
@@ -136,10 +144,12 @@ function renderCards(container) {
 
                 {
                     tag: 'div',
-                    cls: ['card__image_rotate', window.application.cards.cardSuitLittle[
-                        window.application.randomSuit
-                    ]],
-                  
+                    cls: [
+                        'card__image_rotate',
+                        window.application.cards.cardSuitLittle[
+                            window.application.randomSuit
+                        ],
+                    ],
                 },
             ],
         };
