@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+
 window.application = {
     blocks: {},
     screens: {},
@@ -30,4 +31,29 @@ window.application = {
     renderBlock: function (blockName, container) {
         window.application.blocks[blockName](container);
     },
+    timers: []
 };
+
+function startingGameAgain() {
+    const game = document.querySelector('.game');
+    const button = document.querySelector('.result__button');
+    button.addEventListener('click', (event) => {
+        // const { target } = event;
+        const target = event.target as HTMLTextAreaElement;
+        event.preventDefault();
+
+        if (target.dataset.button === 'play-again') {
+            game.innerHTML = '';
+
+            window.application.timers.forEach(timer => {
+
+                clearInterval(timer);
+            });
+
+            window.application.renderScreen('start-screen');
+            
+        }
+    });
+}
+
+export default startingGameAgain;

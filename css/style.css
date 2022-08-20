@@ -108,6 +108,28 @@ body {
     width: 647px;
 }
 
+.header__timer {
+    width: 155px;
+    height: 72px;
+    display: flex;
+}
+
+.header__timer-sec {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 72px;
+    color: #fff;
+}
+
+.header__timer-min {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 72px;
+    color: #fff;
+}
+
 .header__start-again-button {
     margin-top: 20px;
     width: 246px;
@@ -157,7 +179,8 @@ body {
     box-shadow: 0 0 7px #888;
 }
 
-.card {
+.card,
+.card__box {
     display: flex;
     width: 95px;
     height: 133px;

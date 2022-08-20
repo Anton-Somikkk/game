@@ -8,6 +8,7 @@ declare global {
 const game = document.querySelector('.game');
 import { container } from 'webpack';
 import templateEngine from './template-engine';
+import startingGameAgain from './script';
 
 function renderDifficultySelectionBlock() {
     function createBlock() {
@@ -98,7 +99,7 @@ function renderCards(container) {
     function createBlock() {
         return {
             tag: 'div',
-            cls: 'card',
+            cls: 'card__box',
             content: [
                 {
                     tag: 'p',
@@ -213,18 +214,9 @@ function renderWinBlock(container) {
     }
     container.appendChild(templateEngine(createBlock()));
 
-    const button = document.querySelector('.result__button');
-    button.addEventListener('click', (event) => {
-        // const { target } = event;
-        const target = event.target as HTMLTextAreaElement;
-        event.preventDefault();
+    // const button = document.querySelector('.result__button');
 
-        if (target.dataset.button === 'play-again') {
-            game.innerHTML = '';
-
-            window.application.renderBlock('start-block', game);
-        }
-    });
+    startingGameAgain();
 }
 
 function renderLoseBlock(container) {
@@ -280,6 +272,10 @@ function renderLoseBlock(container) {
         };
     }
     container.appendChild(templateEngine(createBlock()));
+
+    // const button = document.querySelector('.result__button');
+
+    startingGameAgain();
 }
 
 window.application.blocks['start-block'] = renderDifficultySelectionBlock;
