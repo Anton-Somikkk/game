@@ -345,6 +345,11 @@ body {
     margin-bottom: 10px;
 }
 
+.result__time-min-sec {
+    display: flex;
+    justify-content: center;
+}
+
 .result__time {
     font-style: normal;
     font-weight: 400;
