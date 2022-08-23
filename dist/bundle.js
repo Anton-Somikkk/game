@@ -837,7 +837,6 @@ function renderDifficultySelectionBlock() {
     game.appendChild((0,_template_engine__WEBPACK_IMPORTED_MODULE_0__["default"])(createBlock()));
     var difficultySelectionBlock = document.querySelector('.difficulty-selection');
     difficultySelectionBlock.addEventListener('click', function (event) {
-        //const { target } = event;
         var target = event.target;
         event.preventDefault();
         if (target.dataset.cards) {
@@ -961,7 +960,6 @@ function renderWinBlock(container) {
         };
     }
     container.appendChild((0,_template_engine__WEBPACK_IMPORTED_MODULE_0__["default"])(createBlock()));
-    // const button = document.querySelector('.result__button');
     (0,_script__WEBPACK_IMPORTED_MODULE_1__["default"])();
 }
 function renderLoseBlock(container) {
@@ -1024,7 +1022,6 @@ function renderLoseBlock(container) {
         };
     }
     container.appendChild((0,_template_engine__WEBPACK_IMPORTED_MODULE_0__["default"])(createBlock()));
-    // const button = document.querySelector('.result__button');
     (0,_script__WEBPACK_IMPORTED_MODULE_1__["default"])();
 }
 window.application.blocks['start-block'] = renderDifficultySelectionBlock;
@@ -1112,8 +1109,16 @@ function stopwatch() {
         }
     }, 1000));
 }
+function stopwatchStop() {
+    window.application.timers.forEach(function (timer) {
+        clearInterval(timer);
+    });
+    document.querySelector('.header__timer-sec').innerHTML =
+        window.application.sec;
+    document.querySelector('.header__timer-min').innerHTML =
+        window.application.min;
+}
 game.addEventListener('click', function (event) {
-    //const { target } = event;
     var target = event.target;
     var gameBox = document.querySelector('.game-box');
     if (target.dataset.card === 'inverted') {
@@ -1131,13 +1136,7 @@ game.addEventListener('click', function (event) {
             (window.application.resultOfMove[2] !==
                 window.application.cardsCollection[target.id][2] &&
                 window.application.resultOfMove.length !== 0)) {
-            window.application.timers.forEach(function (timer) {
-                clearInterval(timer);
-            });
-            document.querySelector('.header__timer-sec').innerHTML =
-                window.application.sec;
-            document.querySelector('.header__timer-min').innerHTML =
-                window.application.min;
+            stopwatchStop();
             setTimeout(function () {
                 window.application.renderBlock('lose-block', game);
             }, 200);
@@ -1157,13 +1156,7 @@ game.addEventListener('click', function (event) {
         }
         if (String(window.application.stepNumber) ===
             window.application.cardsNumber) {
-            window.application.timers.forEach(function (timer) {
-                clearInterval(timer);
-            });
-            document.querySelector('.header__timer-sec').innerHTML =
-                window.application.sec;
-            document.querySelector('.header__timer-min').innerHTML =
-                window.application.min;
+            stopwatchStop();
             setTimeout(function () {
                 window.application.renderBlock('win-block', game);
             }, 200);
@@ -1171,9 +1164,7 @@ game.addEventListener('click', function (event) {
     }
     if (target.dataset.button === 'again') {
         gameBox.innerHTML = '';
-        // window.application.timers.forEach((timer) => {
-        //     clearInterval(timer);
-        // });
+        stopwatchStop();
         generateDataArray();
         setTimeout(function () { return handOutFrontCard(); }, 200);
         setTimeout(function () { return handOutInvertedCard(); }, 5000);
@@ -1278,7 +1269,6 @@ function startingGameAgain() {
     var game = document.querySelector('.game');
     var button = document.querySelector('.result__button');
     button.addEventListener('click', function (event) {
-        // const { target } = event;
         var target = event.target;
         event.preventDefault();
         if (target.dataset.button === 'play-again') {

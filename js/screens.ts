@@ -36,10 +36,10 @@ function renderGameScreen() {
     generateDataArray();
     setTimeout(() => handOutFrontCard(), 200);
     setTimeout(() => handOutInvertedCard(), 5000);
-    stopwatch();
+    watch();
 }
 
-function stopwatch() {
+function watch() {
     let sec = 0;
     let min = 0;
 
@@ -75,10 +75,8 @@ function stopwatch() {
     );
 }
 
-function stopwatchStop() {
-    
+function stopWatch() {
     window.application.timers.forEach((timer) => {
-
         clearInterval(timer);
     });
 
@@ -89,7 +87,6 @@ function stopwatchStop() {
 }
 
 game.addEventListener('click', (event) => {
-    
     const target = event.target as HTMLTextAreaElement;
     const gameBox = document.querySelector('.game-box');
     if (target.dataset.card === 'inverted') {
@@ -112,8 +109,7 @@ game.addEventListener('click', (event) => {
                 window.application.cardsCollection[target.id][2] &&
                 window.application.resultOfMove.length !== 0)
         ) {
-
-            stopwatchStop();
+            stopWatch();
 
             setTimeout(() => {
                 window.application.renderBlock('lose-block', game);
@@ -138,7 +134,7 @@ game.addEventListener('click', (event) => {
             String(window.application.stepNumber) ===
             window.application.cardsNumber
         ) {
-            stopwatchStop();
+            stopWatch();
 
             setTimeout(() => {
                 window.application.renderBlock('win-block', game);
@@ -148,12 +144,12 @@ game.addEventListener('click', (event) => {
 
     if (target.dataset.button === 'again') {
         gameBox.innerHTML = '';
-        
-        stopwatchStop();
+
+        stopWatch();
         generateDataArray();
         setTimeout(() => handOutFrontCard(), 200);
         setTimeout(() => handOutInvertedCard(), 5000);
-        stopwatch();
+        watch();
     }
 });
 
