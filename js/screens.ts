@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-// import timer from './script';
 
 const game = document.querySelector('.game');
 
@@ -46,22 +45,51 @@ function stopwatch() {
 
     window.application.timers.push(
         setInterval(() => {
-            document.querySelector('.header__timer-min').innerHTML =
-                '0' + min + ':';
-            document.querySelector('.header__timer-sec').innerHTML =
-                String(sec);
+            if (min < 10) {
+                document.querySelector('.header__timer-min').innerHTML =
+                    '0' + min + ':';
+                window.application.min = '0' + min + ':';
+            } else {
+                document.querySelector('.header__timer-min').innerHTML =
+                    min + ':';
+                window.application.min = min + ':';
+            }
+            if (sec < 10) {
+                document.querySelector('.header__timer-sec').innerHTML =
+                    '0' + sec;
+                window.application.sec = '0' + sec;
+            } else {
+                document.querySelector('.header__timer-sec').innerHTML =
+                    String(sec);
+                window.application.sec = sec;
+            }
+
             sec++;
+
             if (sec > 59) {
-                // clearInterval(timer);
                 min++;
+
                 sec = 0;
             }
         }, 1000)
     );
 }
 
+function stopwatchStop() {
+    
+    window.application.timers.forEach((timer) => {
+
+        clearInterval(timer);
+    });
+
+    document.querySelector('.header__timer-sec').innerHTML =
+        window.application.sec;
+    document.querySelector('.header__timer-min').innerHTML =
+        window.application.min;
+}
+
 game.addEventListener('click', (event) => {
-    //const { target } = event;
+    
     const target = event.target as HTMLTextAreaElement;
     const gameBox = document.querySelector('.game-box');
     if (target.dataset.card === 'inverted') {
@@ -84,6 +112,9 @@ game.addEventListener('click', (event) => {
                 window.application.cardsCollection[target.id][2] &&
                 window.application.resultOfMove.length !== 0)
         ) {
+
+            stopwatchStop();
+
             setTimeout(() => {
                 window.application.renderBlock('lose-block', game);
             }, 200);
@@ -107,6 +138,8 @@ game.addEventListener('click', (event) => {
             String(window.application.stepNumber) ===
             window.application.cardsNumber
         ) {
+            stopwatchStop();
+
             setTimeout(() => {
                 window.application.renderBlock('win-block', game);
             }, 200);
@@ -115,11 +148,8 @@ game.addEventListener('click', (event) => {
 
     if (target.dataset.button === 'again') {
         gameBox.innerHTML = '';
-
-        window.application.timers.forEach((timer) => {
-            clearInterval(timer);
-        });
-
+        
+        stopwatchStop();
         generateDataArray();
         setTimeout(() => handOutFrontCard(), 200);
         setTimeout(() => handOutInvertedCard(), 5000);

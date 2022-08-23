@@ -31,27 +31,22 @@ window.application = {
     renderBlock: function (blockName, container) {
         window.application.blocks[blockName](container);
     },
-    timers: []
+    timers: [],
+    min: 0,
+    sec: 0,
 };
 
 function startingGameAgain() {
     const game = document.querySelector('.game');
     const button = document.querySelector('.result__button');
     button.addEventListener('click', (event) => {
-        // const { target } = event;
         const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
         if (target.dataset.button === 'play-again') {
             game.innerHTML = '';
 
-            window.application.timers.forEach(timer => {
-
-                clearInterval(timer);
-            });
-
             window.application.renderScreen('start-screen');
-            
         }
     });
 }

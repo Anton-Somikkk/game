@@ -74,7 +74,6 @@ function renderDifficultySelectionBlock() {
     );
 
     difficultySelectionBlock.addEventListener('click', (event) => {
-        //const { target } = event;
         const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
@@ -190,11 +189,21 @@ function renderWinBlock(container) {
                                     cls: 'result__time-message',
                                     content: 'Затраченное время',
                                 },
-
                                 {
                                     tag: 'div',
-                                    cls: 'result__time',
-                                    content: '00:15',
+                                    cls: 'result__time-min-sec',
+                                    content: [
+                                        {
+                                            tag: 'div',
+                                            cls: 'result__time',
+                                            content: window.application.min,
+                                        },
+                                        {
+                                            tag: 'div',
+                                            cls: 'result__time',
+                                            content: window.application.sec,
+                                        },
+                                    ],
                                 },
                             ],
                         },
@@ -213,8 +222,6 @@ function renderWinBlock(container) {
         };
     }
     container.appendChild(templateEngine(createBlock()));
-
-    // const button = document.querySelector('.result__button');
 
     startingGameAgain();
 }
@@ -249,11 +256,21 @@ function renderLoseBlock(container) {
                                     cls: 'result__time-message',
                                     content: 'Затраченное время',
                                 },
-
                                 {
                                     tag: 'div',
-                                    cls: 'result__time',
-                                    content: '00:15',
+                                    cls: 'result__time-min-sec',
+                                    content: [
+                                        {
+                                            tag: 'div',
+                                            cls: 'result__time',
+                                            content: window.application.min,
+                                        },
+                                        {
+                                            tag: 'div',
+                                            cls: 'result__time',
+                                            content: window.application.sec,
+                                        },
+                                    ],
                                 },
                             ],
                         },
@@ -272,8 +289,6 @@ function renderLoseBlock(container) {
         };
     }
     container.appendChild(templateEngine(createBlock()));
-
-    // const button = document.querySelector('.result__button');
 
     startingGameAgain();
 }
