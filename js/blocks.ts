@@ -6,7 +6,7 @@ declare global {
     }
 }
 const game = document.querySelector('.game');
-import { container } from 'webpack';
+
 import templateEngine from './template-engine';
 import startingGameAgain from './script';
 
@@ -72,6 +72,8 @@ function renderDifficultySelectionBlock() {
     const difficultySelectionBlock = document.querySelector(
         '.difficulty-selection'
     );
+
+    window.application.cardsNumber = 0;
 
     difficultySelectionBlock.addEventListener('click', (event) => {
         const target = event.target as HTMLTextAreaElement;
@@ -159,7 +161,7 @@ function renderCards(container) {
     container.appendChild(templateEngine(createBlock()));
 }
 
-function renderWinBlock(container) {
+function renderWinBlock(container: HTMLElement) {
     function createBlock() {
         return {
             tag: 'div',

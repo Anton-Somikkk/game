@@ -24,11 +24,11 @@ window.application = {
     cardsCollection: [],
     resultOfMove: [],
     stepNumber: 0,
-    renderScreen: function (screenName) {
+    renderScreen: function (screenName: string) {
         window.application.screens[screenName]();
     },
 
-    renderBlock: function (blockName, container) {
+    renderBlock: function (blockName: string, container: HTMLElement) {
         window.application.blocks[blockName](container);
     },
     timers: [],

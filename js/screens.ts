@@ -54,6 +54,7 @@ function watch() {
                     min + ':';
                 window.application.min = min + ':';
             }
+
             if (sec < 10) {
                 document.querySelector('.header__timer-sec').innerHTML =
                     '0' + sec;
@@ -89,11 +90,16 @@ function stopWatch() {
 game.addEventListener('click', (event) => {
     const target = event.target as HTMLTextAreaElement;
     const gameBox = document.querySelector('.game-box');
+
     if (target.dataset.card === 'inverted') {
-        window.application.randomSuit =
-            window.application.cardsCollection[target.id][2];
-        window.application.randomTitle =
-            window.application.cardsCollection[target.id][1];
+        const [openedCoupleCards, openedCardTitle, openedCardSuit] =
+            window.application.resultOfMove;
+
+        const [coupleCards, cardTitle, cardSuit] =
+            window.application.cardsCollection[target.id];
+
+        window.application.randomSuit = cardSuit;
+        window.application.randomTitle = cardTitle;
 
         target.classList.remove('inverted-card');
         target.classList.add('card');
@@ -103,10 +109,8 @@ game.addEventListener('click', (event) => {
 
         if (
             (window.application.resultOfMove.length !== 0 &&
-                window.application.resultOfMove[1] !==
-                    window.application.cardsCollection[target.id][1]) ||
-            (window.application.resultOfMove[2] !==
-                window.application.cardsCollection[target.id][2] &&
+                openedCardTitle !== cardTitle) ||
+            (openedCardSuit !== cardSuit &&
                 window.application.resultOfMove.length !== 0)
         ) {
             stopWatch();
@@ -115,15 +119,15 @@ game.addEventListener('click', (event) => {
                 window.application.renderBlock('lose-block', game);
             }, 200);
         } else if (
+
             window.application.resultOfMove.length !== 0 &&
-            window.application.resultOfMove[1] ===
-                window.application.cardsCollection[target.id][1] &&
-            window.application.resultOfMove[2] ===
-                window.application.cardsCollection[target.id][2]
+            openedCardTitle === cardTitle &&
+            openedCardSuit === cardSuit
         ) {
             window.application.resultOfMove = [];
             window.application.stepNumber++;
         } else if (window.application.resultOfMove.length === 0) {
+            
             window.application.stepNumber++;
 
             window.application.resultOfMove =
