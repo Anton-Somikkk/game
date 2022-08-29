@@ -77,7 +77,7 @@ function watch() {
 }
 
 function stopWatch() {
-    window.application.timers.forEach((timer) => {
+    window.application.timers.forEach((timer: number) => {
         clearInterval(timer);
     });
 
@@ -119,7 +119,6 @@ game.addEventListener('click', (event) => {
                 window.application.renderBlock('lose-block', game);
             }, 200);
         } else if (
-
             window.application.resultOfMove.length !== 0 &&
             openedCardTitle === cardTitle &&
             openedCardSuit === cardSuit
@@ -127,7 +126,6 @@ game.addEventListener('click', (event) => {
             window.application.resultOfMove = [];
             window.application.stepNumber++;
         } else if (window.application.resultOfMove.length === 0) {
-            
             window.application.stepNumber++;
 
             window.application.resultOfMove =

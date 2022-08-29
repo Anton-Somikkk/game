@@ -96,7 +96,7 @@ function renderDifficultySelectionBlock() {
     });
 }
 
-function renderCards(container) {
+function renderCards(container: HTMLElement) {
     function createBlock() {
         return {
             tag: 'div',
@@ -228,7 +228,7 @@ function renderWinBlock(container: HTMLElement) {
     startingGameAgain();
 }
 
-function renderLoseBlock(container) {
+function renderLoseBlock(container: HTMLElement) {
     function createBlock() {
         return {
             tag: 'div',
