@@ -1,14 +1,7 @@
-/* eslint-disable prettier/prettier */
+const game = document.querySelector('.game') as Element;
 
-declare global {
-    interface Window {
-        application?: any;
-    }
-}
-const game = document.querySelector('.game');
-import { container } from 'webpack';
 import templateEngine from './template-engine';
-import startingGameAgain from './script';
+import restartGame from './script';
 
 function renderDifficultySelectionBlock() {
     function createBlock() {
@@ -71,30 +64,35 @@ function renderDifficultySelectionBlock() {
 
     const difficultySelectionBlock = document.querySelector(
         '.difficulty-selection'
-    );
+    ) as Element;
+
+    window['application'].cardsNumber = 0;
 
     difficultySelectionBlock.addEventListener('click', (event) => {
         const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
-        if (target.dataset.cards) {
+        if (target.dataset.cards && target.parentElement !== null) {
             target.parentElement.childNodes.forEach((element) => {
                 element.classList.remove('difficulty-selection__level_focus');
             });
 
             target.classList.add('difficulty-selection__level_focus');
 
-            window.application.cardsNumber = target.dataset.cards;
+            window['application'].cardsNumber = target.dataset.cards;
         }
 
-        if (target.dataset.button_start && window.application.cardsNumber > 0) {
+        if (
+            target.dataset.button_start &&
+            window['application'].cardsNumber > 0
+        ) {
             game.innerHTML = '';
-            window.application.renderScreen('game-screen');
+            window['application'].renderScreen('game-screen');
         }
     });
 }
 
-function renderCards(container) {
+function renderCards(container: HTMLElement) {
     function createBlock() {
         return {
             tag: 'div',
@@ -104,8 +102,8 @@ function renderCards(container) {
                     tag: 'p',
                     cls: 'card__title',
                     content:
-                        window.application.cards.cardTitle[
-                            window.application.randomTitle
+                        window['application'].cards.cardTitle[
+                            window['application'].randomTitle
                         ],
                 },
 
@@ -113,9 +111,9 @@ function renderCards(container) {
                     tag: 'div',
                     cls: [
                         'card__image',
-                        window.application.cards.cardSuitLittle[
-                            window.application.randomSuit
-                        ],
+                        window['application'].cards.cardSuits[
+                            window['application'].randomSuit
+                        ].small,
                     ],
                 },
 
@@ -123,9 +121,9 @@ function renderCards(container) {
                     tag: 'div',
                     cls: [
                         'card__image_big',
-                        window.application.cards.cardSuitBig[
-                            window.application.randomSuit
-                        ],
+                        window['application'].cards.cardSuits[
+                            window['application'].randomSuit
+                        ].large,
                     ],
                 },
 
@@ -137,8 +135,8 @@ function renderCards(container) {
                             tag: 'p',
                             cls: 'card__title_rotate',
                             content:
-                                window.application.cards.cardTitle[
-                                    window.application.randomTitle
+                                window['application'].cards.cardTitle[
+                                    window['application'].randomTitle
                                 ],
                         },
                     ],
@@ -148,9 +146,9 @@ function renderCards(container) {
                     tag: 'div',
                     cls: [
                         'card__image_rotate',
-                        window.application.cards.cardSuitLittle[
-                            window.application.randomSuit
-                        ],
+                        window['application'].cards.cardSuits[
+                            window['application'].randomSuit
+                        ].small,
                     ],
                 },
             ],
@@ -159,7 +157,7 @@ function renderCards(container) {
     container.appendChild(templateEngine(createBlock()));
 }
 
-function renderWinBlock(container) {
+function renderWinBlock(container: HTMLElement) {
     function createBlock() {
         return {
             tag: 'div',
@@ -196,12 +194,12 @@ function renderWinBlock(container) {
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window.application.min,
+                                            content: window['application'].min,
                                         },
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window.application.sec,
+                                            content: window['application'].sec,
                                         },
                                     ],
                                 },
@@ -223,10 +221,10 @@ function renderWinBlock(container) {
     }
     container.appendChild(templateEngine(createBlock()));
 
-    startingGameAgain();
+    restartGame();
 }
 
-function renderLoseBlock(container) {
+function renderLoseBlock(container: HTMLElement) {
     function createBlock() {
         return {
             tag: 'div',
@@ -263,12 +261,12 @@ function renderLoseBlock(container) {
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window.application.min,
+                                            content: window['application'].min,
                                         },
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window.application.sec,
+                                            content: window['application'].sec,
                                         },
                                     ],
                                 },
@@ -290,10 +288,10 @@ function renderLoseBlock(container) {
     }
     container.appendChild(templateEngine(createBlock()));
 
-    startingGameAgain();
+    restartGame();
 }
 
-window.application.blocks['start-block'] = renderDifficultySelectionBlock;
-window.application.blocks['card'] = renderCards;
-window.application.blocks['win-block'] = renderWinBlock;
-window.application.blocks['lose-block'] = renderLoseBlock;
+window['application'].blocks['start-block'] = renderDifficultySelectionBlock;
+window['application'].blocks['card'] = renderCards;
+window['application'].blocks['win-block'] = renderWinBlock;
+window['application'].blocks['lose-block'] = renderLoseBlock;

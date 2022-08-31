@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import './template-engine.ts';
 import './script.ts';
 import './blocks.ts';
