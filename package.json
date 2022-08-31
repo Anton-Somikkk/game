@@ -9,7 +9,9 @@
     "lint:css": "stylelint ./css**/*.css",
     "build": "webpack",
     "start": "webpack-dev-server --open",
-    "lint:ts": "tsc --noEmit"
+    "lint:ts": "tsc --noEmit",
+    "prepare": "husky install",
+    "lint": "npm run lint:ts && npm run lint:css"
   },
   "repository": {
     "type": "git",
