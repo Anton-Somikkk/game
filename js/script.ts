@@ -42,14 +42,14 @@ window['application'] = {
 };
 
 function restartGame() {
-    const game = document.querySelector('.game') as Element;
-    const button = document.querySelector('.result__button') as Element;
-    button.addEventListener('click', (event) => {
+    const game: Element | null = document.querySelector('.game');
+    const button: Element | null = document.querySelector('.result__button');
+    button!.addEventListener('click', (event) => {
         const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
         if (target.dataset.button === 'play-again') {
-            game.innerHTML = '';
+            game!.innerHTML = '';
 
             window['application'].renderScreen('start-screen');
         }

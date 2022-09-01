@@ -1,4 +1,4 @@
-const game = document.querySelector('.game') as Element;
+const game: Element | null = document.querySelector('.game');
 
 import templateEngine from './template-engine';
 import restartGame from './script';
@@ -60,15 +60,15 @@ function renderDifficultySelectionBlock() {
         };
     }
 
-    game.appendChild(templateEngine(createBlock()));
+    game!.appendChild(templateEngine(createBlock()));
 
-    const difficultySelectionBlock = document.querySelector(
+    const difficultySelectionBlock: Element | null = document.querySelector(
         '.difficulty-selection'
-    ) as Element;
+    );
 
     window['application'].cardsNumber = 0;
 
-    difficultySelectionBlock.addEventListener('click', (event) => {
+    difficultySelectionBlock!.addEventListener('click', (event) => {
         const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
@@ -86,7 +86,7 @@ function renderDifficultySelectionBlock() {
             target.dataset.button_start &&
             window['application'].cardsNumber > 0
         ) {
-            game.innerHTML = '';
+            game!.innerHTML = '';
             window['application'].renderScreen('game-screen');
         }
     });

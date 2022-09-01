@@ -1,4 +1,4 @@
-const game = document.querySelector('.game') as Element;
+const game: Element | null = document.querySelector('.game');
 
 function renderStartScreen() {
     window['application'].renderBlock('start-block', game);
@@ -7,7 +7,7 @@ function renderStartScreen() {
 function renderGameScreen() {
     const headerGame = document.createElement('div');
     headerGame.classList.add('header');
-    game.appendChild(headerGame);
+    game!.appendChild(headerGame);
 
     const timerGame = document.createElement('div');
     timerGame.classList.add('header__timer');
@@ -29,7 +29,7 @@ function renderGameScreen() {
 
     const gameBox = document.createElement('div');
     gameBox.classList.add('game-box');
-    game.appendChild(gameBox);
+    game!.appendChild(gameBox);
 
     generateDataArray();
     setTimeout(() => handOutFrontCard(), 200);
@@ -38,8 +38,10 @@ function renderGameScreen() {
 }
 
 function watch() {
-    const fieldMin = document.querySelector('.header__timer-min') as Element;
-    const fieldSec = document.querySelector('.header__timer-sec') as Element;
+    const fieldMin: Element | null =
+        document.querySelector('.header__timer-min');
+    const fieldSec: Element | null =
+        document.querySelector('.header__timer-sec');
 
     let sec = 0;
     let min = 0;
@@ -47,16 +49,16 @@ function watch() {
     window['application'].timers.push(
         setInterval(() => {
             if (min < 10) {
-                fieldMin.innerHTML = window['application'].min =
+                fieldMin!.innerHTML = window['application'].min =
                     '0' + min + ':';
             } else {
-                fieldMin.innerHTML = window['application'].min = min + ':';
+                fieldMin!.innerHTML = window['application'].min = min + ':';
             }
 
             if (sec < 10) {
-                fieldSec.innerHTML = window['application'].sec = '0' + sec;
+                fieldSec!.innerHTML = window['application'].sec = '0' + sec;
             } else {
-                fieldSec.innerHTML = window['application'].sec = String(sec);
+                fieldSec!.innerHTML = window['application'].sec = String(sec);
             }
 
             sec++;
@@ -84,12 +86,12 @@ function stopWatch() {
     }
 }
 
-game.addEventListener('click', (event) => {
+game!.addEventListener('click', (event) => {
     const target = event.target as HTMLTextAreaElement;
-    const gameBox = document.querySelector('.game-box') as Element;
-    const resultOfMove = window['application'].resultOfMove as Number[];
-    const resultOfMoveLength = window['application'].resultOfMove
-        .length as Number;
+    const gameBox: Element | null = document.querySelector('.game-box');
+    const resultOfMove: Number[] = window['application'].resultOfMove;
+    const resultOfMoveLength: Number[] =
+        window['application'].resultOfMove.length;
 
     if (target.dataset.card === 'inverted') {
         const [openedCoupleCards, openedCardTitle, openedCardSuit] =
@@ -107,10 +109,12 @@ game.addEventListener('click', (event) => {
 
         window['application'].renderBlock('card', target);
 
-        if (
-            (resultOfMoveLength !== 0 && openedCardTitle !== cardTitle) ||
-            (openedCardSuit !== cardSuit && resultOfMoveLength !== 0)
-        ) {
+        const disparityOfOpenTitle =
+            Number(resultOfMoveLength) !== 0 && openedCardTitle !== cardTitle;
+        const disparityOfOpenSuit =
+            openedCardSuit !== cardSuit && Number(resultOfMoveLength) !== 0;
+
+        if (disparityOfOpenTitle || disparityOfOpenSuit) {
             stopWatch();
 
             setTimeout(() => {
@@ -131,7 +135,7 @@ game.addEventListener('click', (event) => {
             return;
         }
 
-        if (resultOfMoveLength === 0) {
+        if (Number(resultOfMoveLength) === 0) {
             window['application'].stepNumber++;
 
             window['application'].resultOfMove =
@@ -140,7 +144,7 @@ game.addEventListener('click', (event) => {
         }
 
         if (
-            resultOfMoveLength !== 0 &&
+            resultOfMoveLength !== [0] &&
             openedCardTitle === cardTitle &&
             openedCardSuit === cardSuit
         ) {
@@ -152,7 +156,7 @@ game.addEventListener('click', (event) => {
     }
 
     if (target.dataset.button === 'again') {
-        gameBox.innerHTML = '';
+        gameBox!.innerHTML = '';
 
         stopWatch();
         generateDataArray();
@@ -164,8 +168,8 @@ game.addEventListener('click', (event) => {
 });
 
 function handOutFrontCard() {
-    const gameBox = document.querySelector('.game-box') as Element;
-    gameBox.innerHTML = '';
+    const gameBox: Element | null = document.querySelector('.game-box');
+    gameBox!.innerHTML = '';
 
     for (let i = 0; i < window['application'].cardsNumber; i++) {
         window['application'].randomSuit =
@@ -178,8 +182,8 @@ function handOutFrontCard() {
 }
 
 function handOutInvertedCard() {
-    const gameBox = document.querySelector('.game-box') as Element;
-    gameBox.innerHTML = '';
+    const gameBox: Element | null = document.querySelector('.game-box');
+    gameBox!.innerHTML = '';
     window['application'].resultOfMove = [];
     window['application'].stepNumber = 0;
 
@@ -189,7 +193,7 @@ function handOutInvertedCard() {
         invertedCard.setAttribute('id', String(i));
         invertedCard.setAttribute('data-card', 'inverted');
 
-        gameBox.appendChild(invertedCard);
+        gameBox!.appendChild(invertedCard);
     }
 }
 
