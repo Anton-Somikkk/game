@@ -1,4 +1,4 @@
-window['application'] = {
+window.application = {
     blocks: {},
     screens: {},
     cardsNumber: 0,
@@ -24,17 +24,17 @@ window['application'] = {
             },
         ],
     },
-    randomTitle: undefined,
-    randomSuit: undefined,
+    randomTitle: 0,
+    randomSuit: 0,
     cardsCollection: [],
     resultOfMove: [],
     stepNumber: 0,
     renderScreen: function (screenName: string) {
-        window['application'].screens[screenName]();
+        window.application.screens[screenName]();
     },
 
     renderBlock: function (blockName: string, container: HTMLElement) {
-        window['application'].blocks[blockName](container);
+        window.application.blocks[blockName](container);
     },
     timers: [],
     min: 0,
@@ -51,7 +51,7 @@ function restartGame() {
         if (target.dataset.button === 'play-again') {
             game!.innerHTML = '';
 
-            window['application'].renderScreen('start-screen');
+            window.application.renderScreen('start-screen');
         }
     });
 }

@@ -1,7 +1,7 @@
 const game: Element | null = document.querySelector('.game');
 
 function renderStartScreen() {
-    window['application'].renderBlock('start-block', game);
+    window.application.renderBlock('start-block', game);
 }
 
 function renderGameScreen() {
@@ -46,19 +46,18 @@ function watch() {
     let sec = 0;
     let min = 0;
 
-    window['application'].timers.push(
+    window.application.timers.push(
         setInterval(() => {
             if (min < 10) {
-                fieldMin!.innerHTML = window['application'].min =
-                    '0' + min + ':';
+                fieldMin!.innerHTML = window.application.min = '0' + min + ':';
             } else {
-                fieldMin!.innerHTML = window['application'].min = min + ':';
+                fieldMin!.innerHTML = window.application.min = min + ':';
             }
 
             if (sec < 10) {
-                fieldSec!.innerHTML = window['application'].sec = '0' + sec;
+                fieldSec!.innerHTML = window.application.sec = '0' + sec;
             } else {
-                fieldSec!.innerHTML = window['application'].sec = String(sec);
+                fieldSec!.innerHTML = window.application.sec = String(sec);
             }
 
             sec++;
@@ -77,37 +76,36 @@ function stopWatch() {
     const fieldSec = document.querySelector('.header__timer-sec');
 
     if (fieldMin !== null && fieldSec !== null) {
-        window['application'].timers.forEach((timer: number) => {
+        window.application.timers.forEach((timer) => {
             clearInterval(timer);
         });
 
-        fieldSec.innerHTML = window['application'].sec;
-        fieldMin.innerHTML = window['application'].min;
+        fieldSec.innerHTML = String(window.application.sec);
+        fieldMin.innerHTML = String(window.application.min);
     }
 }
 
 game!.addEventListener('click', (event) => {
     const target = event.target as HTMLTextAreaElement;
     const gameBox: Element | null = document.querySelector('.game-box');
-    const resultOfMove: Number[] = window['application'].resultOfMove;
-    const resultOfMoveLength: Number[] =
-        window['application'].resultOfMove.length;
+    const resultOfMove: number[] = window.application.resultOfMove;
+    const resultOfMoveLength: number = window.application.resultOfMove.length;
 
     if (target.dataset.card === 'inverted') {
         const [openedCoupleCards, openedCardTitle, openedCardSuit] =
             resultOfMove;
 
-        const [coupleCards, cardTitle, cardSuit] = window['application']
-            .cardsCollection[target.id] as Number[];
+        const [coupleCards, cardTitle, cardSuit] = window.application
+            .cardsCollection[target.id] as number[];
 
-        window['application'].randomSuit = cardSuit;
-        window['application'].randomTitle = cardTitle;
+        window.application.randomSuit = cardSuit;
+        window.application.randomTitle = cardTitle;
 
         target.classList.remove('inverted-card');
         target.classList.add('card');
         target.innerHTML = '';
 
-        window['application'].renderBlock('card', target);
+        window.application.renderBlock('card', target);
 
         const disparityOfOpenTitle =
             Number(resultOfMoveLength) !== 0 && openedCardTitle !== cardTitle;
@@ -118,38 +116,38 @@ game!.addEventListener('click', (event) => {
             stopWatch();
 
             setTimeout(() => {
-                window['application'].renderBlock('lose-block', game);
+                window.application.renderBlock('lose-block', game);
             }, 200);
             return;
         }
 
         if (
-            String(window['application'].stepNumber + 1) ===
-            window['application'].cardsNumber
+            window.application.stepNumber + 1 ===
+            window.application.cardsNumber
         ) {
             stopWatch();
 
             setTimeout(() => {
-                window['application'].renderBlock('win-block', game);
+                window.application.renderBlock('win-block', game);
             }, 200);
             return;
         }
 
         if (Number(resultOfMoveLength) === 0) {
-            window['application'].stepNumber++;
+            window.application.stepNumber++;
 
-            window['application'].resultOfMove =
-                window['application'].cardsCollection[target.id];
+            window.application.resultOfMove =
+                window.application.cardsCollection[target.id];
             return;
         }
 
         if (
-            resultOfMoveLength !== [0] &&
+            resultOfMoveLength !== 0 &&
             openedCardTitle === cardTitle &&
             openedCardSuit === cardSuit
         ) {
-            window['application'].resultOfMove = [];
-            window['application'].stepNumber++;
+            window.application.resultOfMove = [];
+            window.application.stepNumber++;
 
             return;
         }
@@ -171,23 +169,23 @@ function handOutFrontCard() {
     const gameBox: Element | null = document.querySelector('.game-box');
     gameBox!.innerHTML = '';
 
-    for (let i = 0; i < window['application'].cardsNumber; i++) {
-        window['application'].randomSuit =
-            window['application'].cardsCollection[i][2];
-        window['application'].randomTitle =
-            window['application'].cardsCollection[i][1];
+    for (let i = 0; i < window.application.cardsNumber; i++) {
+        window.application.randomSuit =
+            window.application.cardsCollection[i][2];
+        window.application.randomTitle =
+            window.application.cardsCollection[i][1];
 
-        window['application'].renderBlock('card', gameBox);
+        window.application.renderBlock('card', gameBox);
     }
 }
 
 function handOutInvertedCard() {
     const gameBox: Element | null = document.querySelector('.game-box');
     gameBox!.innerHTML = '';
-    window['application'].resultOfMove = [];
-    window['application'].stepNumber = 0;
+    window.application.resultOfMove = [];
+    window.application.stepNumber = 0;
 
-    for (let i = 0; i < window['application'].cardsNumber; i++) {
+    for (let i = 0; i < window.application.cardsNumber; i++) {
         const invertedCard = document.createElement('div');
         invertedCard.classList.add('inverted-card');
         invertedCard.setAttribute('id', String(i));
@@ -198,32 +196,33 @@ function handOutInvertedCard() {
 }
 
 function generateDataArray() {
-    window['application'].cardsCollection = [];
+    window.application.cardsCollection = [];
     const suitCardNumber = 4;
     const titleCardNumber = 9;
 
-    for (let i = 0; i < window['application'].cardsNumber / 2; i++) {
-        window['application'].randomSuit = Math.floor(
+    for (let i = 0; i < window.application.cardsNumber / 2; i++) {
+        window.application.randomSuit = Math.floor(
             Math.random() * suitCardNumber
         );
-        window['application'].randomTitle = Math.floor(
+        window.application.randomTitle = Math.floor(
             Math.random() * titleCardNumber
         );
-        window['application'].cardsCollection.push([
+        window.application.cardsCollection.push([
             i,
-            window['application'].randomTitle,
-            window['application'].randomSuit,
-        ]);
+            window.application.randomTitle,
+            window.application.randomSuit]
+        );
     }
 
-    window['application'].cardsCollection = [
-        ...window['application'].cardsCollection,
-        ...window['application'].cardsCollection,
+    window.application.cardsCollection = [
+        ...window.application.cardsCollection,
+        ...window.application.cardsCollection,
     ];
-    window['application'].cardsCollection.sort(() => Math.random() - 0.5);
+    window.application.cardsCollection.sort(() => Math.random() - 0.5);
+
     handOutInvertedCard();
 }
 
-window['application'].screens['start-screen'] = renderStartScreen;
-window['application'].screens['game-screen'] = renderGameScreen;
-window['application'].renderScreen('start-screen');
+window.application.screens['start-screen'] = renderStartScreen;
+window.application.screens['game-screen'] = renderGameScreen;
+window.application.renderScreen('start-screen');
