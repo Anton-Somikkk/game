@@ -1,7 +1,7 @@
-const game: Element | null = document.querySelector('.game');
+const game: HTMLElement | null = document.querySelector('.game');
 
 function renderStartScreen() {
-    window.application.renderBlock('start-block', game);
+    window.application.renderBlock('start-block', game!);
 }
 
 function renderGameScreen() {
@@ -116,7 +116,7 @@ game!.addEventListener('click', (event) => {
             stopWatch();
 
             setTimeout(() => {
-                window.application.renderBlock('lose-block', game);
+                window.application.renderBlock('lose-block', game!);
             }, 200);
             return;
         }
@@ -125,10 +125,11 @@ game!.addEventListener('click', (event) => {
             window.application.stepNumber + 1 ===
             window.application.cardsNumber
         ) {
+            
             stopWatch();
 
             setTimeout(() => {
-                window.application.renderBlock('win-block', game);
+                window.application.renderBlock('win-block', game!);
             }, 200);
             return;
         }
@@ -166,7 +167,7 @@ game!.addEventListener('click', (event) => {
 });
 
 function handOutFrontCard() {
-    const gameBox: Element | null = document.querySelector('.game-box');
+    const gameBox: HTMLElement | null = document.querySelector('.game-box');
     gameBox!.innerHTML = '';
 
     for (let i = 0; i < window.application.cardsNumber; i++) {
@@ -175,7 +176,7 @@ function handOutFrontCard() {
         window.application.randomTitle =
             window.application.cardsCollection[i][1];
 
-        window.application.renderBlock('card', gameBox);
+        window.application.renderBlock('card', gameBox!);
     }
 }
 

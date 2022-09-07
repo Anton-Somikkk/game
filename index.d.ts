@@ -19,8 +19,8 @@ interface Application {
     cardsNumber: number;
     randomTitle: number;
     randomSuit: number;
-    renderBlock: any;
-    renderScreen: any;
+    renderBlock: (blockName: string, container: HTMLElement) => void;
+    renderScreen: (screenName: string) => void;
 }
 
 interface Timers {
