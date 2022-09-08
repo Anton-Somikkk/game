@@ -1,4 +1,4 @@
-window['application'] = {
+window.application = {
     blocks: {},
     screens: {},
     cardsNumber: 0,
@@ -24,17 +24,17 @@ window['application'] = {
             },
         ],
     },
-    randomTitle: undefined,
-    randomSuit: undefined,
+    randomTitle: 0,
+    randomSuit: 0,
     cardsCollection: [],
     resultOfMove: [],
     stepNumber: 0,
-    renderScreen: function (screenName: string) {
-        window['application'].screens[screenName]();
+    renderScreen: function (screenName) {
+        window.application.screens[screenName]();
     },
 
-    renderBlock: function (blockName: string, container: HTMLElement) {
-        window['application'].blocks[blockName](container);
+    renderBlock: function (blockName, container) {
+        window.application.blocks[blockName](container);
     },
     timers: [],
     min: 0,
@@ -42,16 +42,16 @@ window['application'] = {
 };
 
 function restartGame() {
-    const game = document.querySelector('.game') as Element;
-    const button = document.querySelector('.result__button') as Element;
-    button.addEventListener('click', (event) => {
+    const game: Element | null = document.querySelector('.game');
+    const button: Element | null = document.querySelector('.result__button');
+    button!.addEventListener('click', (event) => {
         const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
         if (target.dataset.button === 'play-again') {
-            game.innerHTML = '';
+            game!.innerHTML = '';
 
-            window['application'].renderScreen('start-screen');
+            window.application.renderScreen('start-screen');
         }
     });
 }

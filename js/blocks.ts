@@ -1,4 +1,4 @@
-const game = document.querySelector('.game') as Element;
+const game: Element | null = document.querySelector('.game');
 
 import templateEngine from './template-engine';
 import restartGame from './script';
@@ -60,15 +60,15 @@ function renderDifficultySelectionBlock() {
         };
     }
 
-    game.appendChild(templateEngine(createBlock()));
+    game!.appendChild(templateEngine(createBlock()));
 
-    const difficultySelectionBlock = document.querySelector(
+    const difficultySelectionBlock: Element | null = document.querySelector(
         '.difficulty-selection'
-    ) as Element;
+    );
 
-    window['application'].cardsNumber = 0;
+    window.application.cardsNumber = 0;
 
-    difficultySelectionBlock.addEventListener('click', (event) => {
+    difficultySelectionBlock!.addEventListener('click', (event) => {
         const target = event.target as HTMLTextAreaElement;
         event.preventDefault();
 
@@ -79,15 +79,12 @@ function renderDifficultySelectionBlock() {
 
             target.classList.add('difficulty-selection__level_focus');
 
-            window['application'].cardsNumber = target.dataset.cards;
+            window.application.cardsNumber = Number(target.dataset.cards);
         }
 
-        if (
-            target.dataset.button_start &&
-            window['application'].cardsNumber > 0
-        ) {
-            game.innerHTML = '';
-            window['application'].renderScreen('game-screen');
+        if (target.dataset.button_start && window.application.cardsNumber > 0) {
+            game!.innerHTML = '';
+            window.application.renderScreen('game-screen');
         }
     });
 }
@@ -102,8 +99,8 @@ function renderCards(container: HTMLElement) {
                     tag: 'p',
                     cls: 'card__title',
                     content:
-                        window['application'].cards.cardTitle[
-                            window['application'].randomTitle
+                        window.application.cards.cardTitle[
+                            window.application.randomTitle
                         ],
                 },
 
@@ -111,8 +108,8 @@ function renderCards(container: HTMLElement) {
                     tag: 'div',
                     cls: [
                         'card__image',
-                        window['application'].cards.cardSuits[
-                            window['application'].randomSuit
+                        window.application.cards.cardSuits[
+                            window.application.randomSuit
                         ].small,
                     ],
                 },
@@ -121,8 +118,8 @@ function renderCards(container: HTMLElement) {
                     tag: 'div',
                     cls: [
                         'card__image_big',
-                        window['application'].cards.cardSuits[
-                            window['application'].randomSuit
+                        window.application.cards.cardSuits[
+                            window.application.randomSuit
                         ].large,
                     ],
                 },
@@ -135,8 +132,8 @@ function renderCards(container: HTMLElement) {
                             tag: 'p',
                             cls: 'card__title_rotate',
                             content:
-                                window['application'].cards.cardTitle[
-                                    window['application'].randomTitle
+                                window.application.cards.cardTitle[
+                                    window.application.randomTitle
                                 ],
                         },
                     ],
@@ -146,8 +143,8 @@ function renderCards(container: HTMLElement) {
                     tag: 'div',
                     cls: [
                         'card__image_rotate',
-                        window['application'].cards.cardSuits[
-                            window['application'].randomSuit
+                        window.application.cards.cardSuits[
+                            window.application.randomSuit
                         ].small,
                     ],
                 },
@@ -194,12 +191,12 @@ function renderWinBlock(container: HTMLElement) {
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window['application'].min,
+                                            content: window.application.min,
                                         },
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window['application'].sec,
+                                            content: window.application.sec,
                                         },
                                     ],
                                 },
@@ -261,12 +258,12 @@ function renderLoseBlock(container: HTMLElement) {
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window['application'].min,
+                                            content: window.application.min,
                                         },
                                         {
                                             tag: 'div',
                                             cls: 'result__time',
-                                            content: window['application'].sec,
+                                            content: window.application.sec,
                                         },
                                     ],
                                 },
@@ -291,7 +288,7 @@ function renderLoseBlock(container: HTMLElement) {
     restartGame();
 }
 
-window['application'].blocks['start-block'] = renderDifficultySelectionBlock;
-window['application'].blocks['card'] = renderCards;
-window['application'].blocks['win-block'] = renderWinBlock;
-window['application'].blocks['lose-block'] = renderLoseBlock;
+window.application.blocks['start-block'] = renderDifficultySelectionBlock;
+window.application.blocks['card'] = renderCards;
+window.application.blocks['win-block'] = renderWinBlock;
+window.application.blocks['lose-block'] = renderLoseBlock;
